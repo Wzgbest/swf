@@ -1,0 +1,20 @@
+﻿{include file="common/resouce"}
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 模板管理 <span class="c-gray en">&gt;</span> 模板展示 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
+    <embed style="display: block;margin: 0 auto;" src="/model/{$template.template}" FlashVars="bcastr_xml_url={$template.xml_url}&bcastr_config=0xffffff|1|0x0066ff|20|0xffffff|0x0066ff|0x000033|2|3|3|_blank" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="600" height="500">
+
+
+<!--bcastr4-->
+<!--<object id="bcastr4" data="/model/{$template.template}?xml=/xml/{$template.model_num}_{$template.userid}.xml" type="application/x-shockwave-flash" width="500" height="300">-->
+    <!--<param name="movie" value="/model/{$template.template}?xml=/xml/{$template.model_num}_{$template.userid}.xml" />-->
+<!--</object>-->
+{include file="common/footer_common"}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/h_ui/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".portfolio-area li").Huihover();
+});
+</script>
+{include file="common/footer"}

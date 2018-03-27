@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="">
+	<title>全影 - 全影DIY视频</title>
+	<meta name="keywords" content="全影DIY,婚礼视频制作,婚礼电子相册模板,婚礼电子相册制作,婚礼短片制作,婚礼开场片,婚礼预告片,婚礼视频模版,成长感恩片,婚礼mv,成长mv,照片视频制作,电子相册制作,在线视频制作,相册视频制作,企业宣传片,电子相册,照片视频,宝宝成长,生日祝福,同学聚会,求婚表白,毕业视频,旅行视频">
+	<meta name="description" content="全影DIY，零基础，上传照片和视频，即可快速制作精美视频，如婚礼视频、电子相册、开场视频、企业宣传片、宝宝成长记录、年会视频、求婚表白、毕业视频、旅行视频等">
+    <link href="/static/index/css/style.css?ver=1514887601" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/boots.css?ver=1513160029" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/home_new.css?ver=1513244205" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/login_modal.css?ver=1504075981" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/help.css?ver=1513826978" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/static/index/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/jquery.tipsy.min.js"></script>
+    <link href="/static/index/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/index/css/jquery.tipsy.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/index/js/common.min.js?ver=1513775240"></script>
+    <script type="text/javascript" src="/static/index/js/common-modal.min.js?ver=1502332284"></script>
+    <script type="text/javascript" src="/static/index/js/login.min.js?ver=1504076130"></script>
+	<script type="text/javascript" src="/static/index/js/slidepic.js"></script>
+	<!--<style>
+		.tipsy-inner {
+			background-color: #4DD3C5;
+		}
+		.tipsy-arrow-s {
+			border-top-color: #4DD3C5;
+		}
+	</style>-->
+</head>
+<body>
+{include file="/common/lists"}
+<script>
+    var hour = new Date().getHours();
+    var timeRegion;
+    if(hour >= 4 && hour < 7){
+        timeRegion = '凌晨好';
+    }else if(hour >= 7 && hour < 8){
+        timeRegion = '早晨好';
+    }else if(hour >= 8 && hour < 12){
+        timeRegion = '上午好';
+    }else if(hour >= 12 && hour < 14){
+        timeRegion = '中午好';
+    }else if(hour >= 14 && hour < 18){
+        timeRegion = '下午好';
+    }else if(hour >= 18 && hour < 23){
+        timeRegion = '晚上好';
+    }else{
+        timeRegion = '深夜好';
+    }
+    console.log('%c^*(- -)*^ ' + timeRegion, 'color: #4DD3C5;font-size:50px;');
+    var user_profile = $('#user-profile');
+    user_profile.text(user_profile.text() + ', ' + timeRegion);
+    $('.tpcont').hover(function(){
+        setTimeout(function(){
+			$('.tpbubble').stop().animate({'right':'127px'});
+        },200);
+	}, function(){
+        setTimeout(function(){
+            $('.tpbubble').stop().animate({'right':'-8px'});
+		},200);
+	});
+</script>
+<script type="text/javascript" src="/static/index/js/video-modal.min.js?ver=1516071615"></script>
+<style>
+	.holiday-notice {
+		position: absolute;
+		right: -30px;
+		top: 18px;
+		width: 632px;
+		height: 54px;
+		padding: 16px 65px;
+		padding-right: 0;
+		color: #24c5b4;
+		font-size: 14px;
+		font-weight: bold;
+		background: url('/static/index/images/notice.png');
+	}
+</style>
+<div class="centercont clearfix">
+    <div class="wrap">
+        <div class="ltnemu fl">
+            <ul>
+                <li><a href="/index/member/index/" {eq name="status" value="0"} class="on" {/eq}>制作中</a></li>
+                <li><a href="/index/member/index/status/1" {eq name="status" value="1"} class="on" {/eq}>输出中</a></li>
+                <li><a href="/index/member/index/status/2" {eq name="status" value="2"} class="on" {/eq}>已完成</a></li>
+                <!--<li><a href="/index/member/index/status/3" {eq name="status" value="3"} class="on" {/eq}>视频输出</a></li>-->
+                <!--<li><a href="/index/member/index/status/4" {eq name="status" value="4"} class="on" {/eq}>输出失败</a></li>-->
+                <!--<li><a href="/member/gift/index.html">我的礼品</a></li>-->
+            </ul>
+            <div class="btns" style="display: none">
+                <span>余额：<i>￥0.00</i></span>
+                <!---->
+                <a href="/member/payment">充值</a>
+                <a href="/payguide.html" target="_blank" style="margin-top: 20px;"><img src="/static/index/images/payguide.jpg"></a>
+            </div>
+        </div>
+        <div class="rimaincint fr">
+            <div class="smthke clearfix">
+                {if condition="$status eq 0"}
+                <i>制作中</i>
+                {elseif condition="$status eq 1"/}
+                <i>输出中</i>
+                {elseif condition="$status eq 2"/}
+                <i>已完成</i>
+                {/if}
+            </div>
+            <div class="mycaselist clearfix">
+                <div class="addpt">
+                    <a href="/"><img src="/static/index/images/addicos.png"><i>创建视频</i></a>
+                </div>
+                {volist name="lists" id="li"}
+                <div class="zprt">
+                    <div class="pic pr">
+                        <img style="width:100%" src="{$li.img}">
+                        <div>
+                            <span>
+                                {if condition="$li.status eq 3"}
+                                <a href="/index/member/vedioShow/productid/{$li.id}" class="a1" target="_blank">查看视频</a>
+                                <a href="{$li.av_link}" download="{$li.av_id}.mp4" class="a1">下载视频</a>
+                                {elseif condition="$li.status eq 4"/}
+                                <a href="javascript:resetVedio('{$li.id}','{$li.model_name}')" class="a1">重新渲染</a>
+                                {elseif condition="$li.status eq 0 or $li.status eq 1"/}
+                                <a href="/index/member/zhizuo/id/{$li.modelid}/productid/{$li.id}" class="a1">制作视频</a>
+                                <a href="javascript:delWork('{$li.id}','{$li.model_name}')" class="a2">删除</a>
+                                {/if}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="word">
+                        <div class="proname" style="color: #777;">
+								<span>
+									<i class="work-name" id="work-name-{$li.id}" title="{$li.model_name}">{$li.model_name}</i>&nbsp;
+									<!--<i class="fa fa-pencil edit-work-name" aria-hidden="true" onclick="show_name_editor(1888830);" aria-describedby="tipsy" tabindex="0"></i>-->
+								</span>
+                            <span style="display: none">
+									<input type="text" value="甜蜜家人" maxlength="25" id="work-editor-1888830">
+									<i class="fa fa-check edit-name-confirm" aria-hidden="true" style="color: green;"
+                                       title="确认" onclick="confirm_name_edit(1888830);"></i>
+									<i class="fa fa-times edit-name-cancel" aria-hidden="true" style="color: red;"
+                                       title="取消" onclick="cancel_name_edit(this);"></i>
+								</span>
+                            <span style="float: right;">
+									<i>{if condition="$li.status eq 0"}正在编辑{elseif condition="$li.status eq 1"}编辑完成{elseif condition="$li.status eq 3"/}已输出{elseif condition="$li.status eq 4"}渲染失败{elseif condition="$li.status eq 5"}渲染中{/if}</i>
+								</span>
+                        </div>
+                        <div class="info">
+                            <i>{$li.time}</i>
+                            <em>修改时间：{$li.update_time|time_format}</em>
+                        </div>
+                    </div>
+                </div>
+                {/volist}
+            </div>
+        </div>
+    </div>
+    <!--<input type="hidden" id="domain" value="http://www.chuanying520.com/"/>-->
+    <!--<input type="hidden" id="domain" value="http://www.chuanying520.com/"/>-->
+</div>
+<script type="text/javascript">
+	$(function(){
+        $('.edit-work-name').tipsy({gravity: 's',offset: 5});
+	    var status_complete = parseInt(2);
+        //禁用后退
+		if(status_complete === 4) {
+            history.pushState(null, null, document.URL);
+            window.addEventListener('popstate', function () {
+                history.pushState(null, null, document.URL);
+            });
+        }
+	});
+    //重命名
+    function rname(id){
+        project_name = $('#proname_'+id).text();
+        $('#project_name_'+id).remove();
+        $('#projectname_' + id).prepend('<input id="edit_name_'+ id +'" onblur="input_blur('+ id +');" style="width:120px;" name="project_name" value="'+project_name+'">');
+        $('#edit_name_'+id).val('').focus().val(project_name);
+    }
+    function show_name_editor(id){
+        $('#work-name-' + id).parent().hide().next().show();
+        var work_editor = $('#work-editor-' + id);
+        var work_name = work_editor.val();
+        work_editor.val('').focus().val(work_name);
+	}
+	function cancel_name_edit(_obj){
+        $(_obj).parent().hide().prev().show();
+	}
+    //重命名确定
+    function confirm_name_edit(id){
+	    var work_editor = $('#work-editor-'+id);
+        var edit_name = work_editor.val();
+        if(!$.trim(edit_name)){
+            diybox.alert('名称不能为空');
+            return false;
+        }else{
+            $.post('/member/video/rname',{'id':id,'rname':edit_name},function(reponse){
+                $('#work-name-'+id).text(edit_name).attr('title', edit_name);
+                work_editor.parent().hide().prev().show();
+            },'json');
+        }
+        //$('#edit_name_'+id).remove();
+        //$('#projectname_'+id).prepend('<span id="project_name_"'+id+'>'+ edit_name +'</span>');
+    }
+    //视频制作
+    function makeVideo(tid,size){
+        $.post('/member/video/make',{'tid':tid,'size':size},function(response){
+            if(response.error){
+                diybox.alert({message:response.msg,closeBtn:false});
+                return false;
+            }else{
+                diybox.alert({message:response.msg,closeBtn:false});
+                setTimeout(function(){
+                    window.location.href = '/member/video/my_work/4.html';
+                },2000)
+            }
+        },'json');
+    }
+    function delWork(id, title){
+        diybox.confirm({
+                message:'确认删除作品“' + title + '”吗？',
+                closeBtn:false,
+                yes:function() {
+					$.post('/index/member/delWork',{'id':id},function(response){
+					    console.log(response.message);
+						if(response.error) {
+							diybox.alert({
+								message: response.message,
+								buttons: {
+									ok: '好的'
+								},
+								closeBtn: false
+							});
+							return;
+						}
+						history.go(0);
+					},'json');
+                }
+            }
+        );
+    }
+    function resetVedio(id, title){
+        diybox.confirm({
+                message:'确认重新制作“' + title + '”吗？',
+                closeBtn:false,
+                yes:function() {
+                    $.post('/index/member/vedioRestart',{'id':id},function(response){
+                        console.log(response.message);
+                        if(response.error) {
+                            diybox.alert({
+                                message: response.message,
+                                buttons: {
+                                    ok: '好的'
+                                },
+                                closeBtn: false
+                            });
+                            return;
+                        }
+                        history.go(0);
+                    },'json');
+                }
+            }
+        );
+    }
+</script>
+{include file="/common/footer"}
+<!--<a href="https://www.wjx.cn/jq/18232327.aspx" class="survey" target="_blank">
+	<img src="/static//static/index/images/survey.png" alt="">
+</a>-->
+<script>
+    jQuery(".indcase .cont").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"left",autoPlay:true,scroll:3,vis:3,delayTime:1000,pnLoop:false,trigger:"click"});
+</script>
+</body>
+</html>

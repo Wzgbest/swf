@@ -1,0 +1,77 @@
+{include file="common/resouce"}
+<link rel="stylesheet" href="/h_ui/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<nav class="breadcrumb"><a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<table class="table">
+    <tr>
+        <td width="200" class="va-t"><ul id="treeDemo" class="ztree"></ul>
+            <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="scene_add('/admin/index/scene/id/{$modelid}')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加场景</a></span> </div>
+        </td>
+        <td class="va-t"><iframe ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=700px SRC="/admin/index/scene/id/{$modelid}"></iframe></td>
+    </tr>
+</table>
+{include file="common/footer_common"}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/h_ui/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript">
+    function scene_add(url) {
+        demoIframe.attr("src",url);
+    }
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            showLine: false,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable:true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: ""
+            }
+        },
+        callback: {
+            beforeClick: function(treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                // console.log(treeNode);
+                if (treeNode.isParent) {
+                    zTree.expandNode(treeNode);
+                    return false;
+                } else {
+                    demoIframe.attr("src","/admin/index/add_scene/id/"+treeNode.id);
+                    return true;
+                }
+            }
+        }
+    };
+    var json_data='{$scenes}';
+    var scenes = JSON.parse(json_data);
+    // console.log(scenes);
+    var str=new Array();
+    for (i=0;i<scenes.length;i++){
+        var obj = new Object();
+        obj.id = scenes[i].id;
+        obj.pId = 0;
+        obj.name = scenes[i].scene_name;
+        str[i] = obj;
+    }
+    // console.log(str);
+    var zNodes = str;
+    var code;
+
+    function showCode(str) {
+        if (!code) code = $("#code");
+        code.empty();
+        code.append("<li>"+str+"</li>");
+    }
+    $(document).ready(function(){
+        var t = $("#treeDemo");
+        t = $.fn.zTree.init(t, setting, zNodes);
+        demoIframe = $("#testIframe");
+        // demoIframe.on("load", loadReady);
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        // zTree.selectNode(zTree.getNodeByParam("id",'11'));
+    });
+</script>
+{include file="common/footer"}

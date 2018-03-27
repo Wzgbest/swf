@@ -1,0 +1,226 @@
+{include file="common/resouce"}
+<link href="/h_ui/lib/webuploader/0.1.5/webuploader.css"  rel="stylesheet" type="text/css" />
+<div class="page-container">
+	<form class="form form-horizontal" id="form-article-add" method="post" onsubmit="return false;"  enctype="multipart/form-data">
+		{if condition="$info"}
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">模板名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.model_name}" placeholder="" id="" name="model_name">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">排序值：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.sort}" placeholder="" id="" name="sort">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">上线：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="check-box">
+					<input name="status" type="checkbox" {if condition="$info.status"} checked {/if}/>
+					<label for="checkbox-1">&nbsp;</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">模板编号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.model_num}" placeholder="10000" id="" name="model_num" readonly>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">模板上传：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-thum-container">
+					<span class="btn-upload form-group">
+					  <input class="input-text upload-url radius" value="{$info.template}" type="text" name="uploadfile-1" id="uploadfile-1" readonly><a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览文件</a>
+					  <input type="file" multiple name="swf" class="input-file">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">缩略图：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-thum-container">
+					<span class="btn-upload form-group">
+					  <input class="input-text upload-url radius" value="{$info.img}" type="text" name="uploadfile-2" id="uploadfile-2" readonly><a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览文件</a>
+					  <input type="file" multiple name="img" class="input-file">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">模板时长：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"  placeholder="0分30秒" id="" name="time" value="{$info.time}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea  class="textarea"  placeholder="请输入简介" id="" name="content">{$info.content}</textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button onClick="article_eidt_submit({$info.id});" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+		{else/}
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">模板名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="" name="model_name">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">排序值：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="0" placeholder="" id="" name="sort">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">上线：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="check-box">
+					<input name="status" type="checkbox"/>
+					<label for="checkbox-1">&nbsp;</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">模板编号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="10000" id="" name="model_num">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">模板上传：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-thum-container">
+					<span class="btn-upload form-group">
+					  <input class="input-text upload-url radius" type="text" name="uploadfile-1" id="" >
+						<a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览文件</a>
+					  <input type="file" multiple="multiple" name="swf" id="swf" class="input-file">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">视频：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-thum-container">
+					<span class="btn-upload form-group">
+					  <input class="input-text upload-url radius" type="text" name="uploadfile-3" id="" readonly><a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览文件</a>
+					  <input type="file" multiple name="movie" class="input-file">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">缩略图：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-thum-container">
+					<span class="btn-upload form-group">
+					  <input class="input-text upload-url radius" type="text" name="uploadfile-2" id="" readonly><a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览文件</a>
+					  <input type="file" multiple name="img" class="input-file">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">模板时长：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"  placeholder="0分30秒" id="" name="time">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea  class="textarea"  placeholder="请输入简介" id="" name="content"></textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button onClick="article_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i>保存</button>
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+		{/if}
+	</form>
+</div>
+
+{include file="common/footer_common"}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/h_ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/h_ui/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/h_ui/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/h_ui/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<!--<script type="text/javascript" src="/h_ui/lib/webuploader/0.1.5/webuploader.js"></script>-->
+<script type="text/javascript">
+
+	function article_save_submit() {
+        // var data = $(".form-horizontal").serialize();
+        var formData = new FormData($(".form-horizontal" )[0]);
+        var files = $('#swf')[0].files;
+        console.log(files);
+        for (i = 0; i < files.length; ++i) {
+            formData.append('file[]',files[i]);
+		}
+        console.log(formData);
+        // return;
+        $.ajax({
+            url: "/admin/index/upload",
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+			cache: false,
+            processData: false,  // 告诉jQuery不要去处理发送的数据
+            contentType: false,
+            success:function(data){
+                if (data.status) {
+                    layer.msg(data.message,{icon:data.status==1?1:2});
+                    window.parent.location.reload();
+                }else{
+                    layer.msg(data.message,{icon:data.status==1?1:2});
+				}
+            },
+            error:function(){
+                layer.msg('发布动态失败!',{icon:2});
+            }
+        });
+    }
+
+    function article_eidt_submit(id) {
+        var data = $(".form-horizontal").serialize();
+        data += "&id="+id;
+        console.log(data);
+        $.ajax({
+            url: "/admin/index/info_edit",
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            // processData: false,  // 告诉jQuery不要去处理发送的数据
+            // contentType: false,
+            success:function(data){
+                if (data.status) {
+                    layer.msg(data.message,{icon:data.status==1?1:2});
+                    window.parent.location.reload();
+                }else{
+                    layer.msg(data.message,{icon:data.status==1?1:2});
+                }
+            },
+            error:function(){
+                layer.msg('修改失败!',{icon:2});
+            }
+        });
+    }
+</script>
+{include file="common/footer"}

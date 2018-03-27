@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+  ~ // +----------------------------------------------------------------------
+  ~ // | 全心服务 影响未来
+  ~ // +----------------------------------------------------------------------
+  ~ // | Copyright (c) 2018 www.7192.com All rights reserved.
+  ~ // +----------------------------------------------------------------------
+  ~ // | Author: wuzhenguo <wuzhenguook@gmail.com> <The Best Word!!!>
+  ~ // +----------------------------------------------------------------------
+  -->
+
+<div class="header clearfix ind">
+    <div class="wrap">
+        <div class="logo fl">
+            <a href="/"><img src="/static/index/images/logo.png"></a>
+        </div>
+        <div class="nav fl">
+            <a href="/" {eq name="cate" value="0"}class="on"{/eq}>首页</a>
+            <a href="/index/index/cates/cate/2" {eq name="cate" value="2"}class="on"{/eq}>
+                生活相册 </a>
+            <a href="/index/index/cates/cate/3" {eq name="cate" value="3"}class="on"{/eq}>
+                宣传展示 </a>
+            <a href="/index/index/cates/cate/4" {eq name="cate" value="4"}class="on"{/eq}>
+                小视频 </a>
+            <a href="/index/index/cates/cate/5" {eq name="cate" value="5"}class="on"{/eq}>
+                产品广告 </a>
+        </div>
+        {if condition="$account"}
+        <div class="fr dls">
+            <div class="tpcont pr">
+                <a href="/index/member/index" id="user-profile">{$name}</a>
+                <div class="tpuser" style="height:120px;">
+                    <ul>
+                        <li>
+                            <a href="/index/member/index">我的作品</a>
+                        </li>
+                        <!--<li>-->
+                        <!--<a href="/member/profile.html">账户管理</a>-->
+                        <!--</li>-->
+                        <!--<li>
+                            <a href="/store.html">礼品商城</a>
+                        </li>-->
+                        <li>
+                            <a href="/index/member/logout">退出登录</a>
+                        </li>
+                    </ul>
+                </div>
+                <b class="caret"></b>
+            </div>
+        </div>
+        {else/}
+        <div class="fr dl">
+            <!--<a href="/member/home/login.html">登录</a>-->
+            <a href="javascript:login_modal(-2);">登录</a>
+        </div>
+        {/if}
+            <!--<span>余额：<i>￥0.00</i></span>-->
+        <!--<div class="nav fr" style="padding-left: 0;">
+            <a  href="/store.html" >礼品商城</a>
+        </div>-->
+
+    </div>
+</div>
+

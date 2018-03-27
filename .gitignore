@@ -1,0 +1,12 @@
+.idea
+composer.lock
+*.log
+/runtime/
+*.zip
+/public/images
+/public/model
+/public/xml
+/public/movie
+/public/music
+/public/js
+

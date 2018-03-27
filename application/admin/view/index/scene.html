@@ -1,0 +1,76 @@
+{include file="common/resouce"}
+<link href="/h_ui/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 添加场景 </nav>
+<div class="page-container">
+    <form class="form form-horizontal" id="form-article-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">场景名字：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text valid" value="" placeholder="" id="" name="scene_name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">允许修改文字多少处：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text valid" value="" placeholder="" id="" name="text_num">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">允许修改图片多少处：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text valid" value="" placeholder="" id="" name="img_num">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">排序：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text valid" value="" placeholder="" id="" name="sort">
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button type="hidden" value="{$modelid}" id="modelid" name="modelid">
+                    <button onClick="article_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{include file="common/footer_common"}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/h_ui/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/h_ui/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/h_ui/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    function article_save(){
+        // alert("刷新父级的时候会自动关闭弹层。")
+        window.parent.location.reload();
+    }
+
+    function article_save_submit() {
+        var url = "/admin/index/scene_upload";
+        var data = $("#form-article-add").serialize();
+        var modelid = $('#modelid').val();
+        data = data+"&modelid="+modelid;
+        console.log(data);
+        console.log(modelid);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success:function(data){
+                if(data.status) {
+                    article_save();
+                    layer.msg(data.message,{icon:data.status==1?1:2});
+                }
+            },
+            error:function(){
+                layer.msg('删除失败!',{icon:2});
+            }
+        });
+    }
+</script>
+{include file="common/footer"}

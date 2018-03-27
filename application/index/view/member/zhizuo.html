@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="author" content="">
+    <title>全影</title>
+    <link rel="stylesheet" href="/static/index/css/font-awesome.min.css" type="text/css">
+    <link href="/static/index/css/cropper.min.css" rel="stylesheet">
+    <link href="/static/index/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/upload.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/static/index/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/jquery.qrcode.min.js"></script>
+    <script src="/static/index/js/rasterizeHTML.allinone.js"></script>
+    <script src="/static/index/js/cropper.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/jquery.tipsy.min.js"></script>
+    <link href="/static/index/css/jquery.tipsy.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/index/js/common.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/common-modal.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/upload.min.js"></script>
+    <style>
+        /*        .tipsy-inner {
+                    background-color: #4DD3C5;
+                }
+                .tipsy-arrow-s {
+                    border-top-color: #4DD3C5;
+                }*/
+        .modal-edit-text .picbg img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body bgcolor="#f1f3f5">
+<div class="editheader">
+    <div class="logo"><a href="/"><img src="/static/index/images/logo1.png"></a></div>
+    <div class="gobacks"><a href="/index/member/index"><i class="icon-reply"></i>&nbsp;&nbsp;返回我的作品</a></div>
+    <!--<ul>
+        <li><a href="/member/video/index/1931374.html" class="on"><i class="icon-list"></i>批量制作</a></li>
+        <li><a href="/member/video/index/1931374/break_down.html"><i class="icon-th-large"></i>分镜编辑</a></li>
+    </ul>-->
+    <div class="pender-progress" id="render-progress" {if condition="$product.status eq 0"} style="display: none" {/if}><i></i><em>渲染获取中...请耐心等待</em></div>
+    <div class="pender-progress" id="" {neq name="product.status" value="0"} style="display: none" {/neq}><em>请输入激活码后再点击生成视频····</em></div>
+    <div class="btns" {neq name="product.status" value="0"} style="display: none;" {/neq}>
+        <!--<a href="javascript:void(0);" id="save-video">保存</a>-->
+        <!--<a href="javascript:void(0);" id="pre-video">生成预览</a>-->
+        <span style="color: #FFFFFF;margin-left: 20px;">输入激活码</span><input style="margin-left: 10px" type="text" id="code">
+        <a href="javascript:void(0);" id="make-video">生成成片</a>
+    </div>
+</div>
+<div class="editmain">
+    <div class="leftcont">
+        <div class="preview">
+            <div id="preview-title">
+                <h2 title="{$model.model_name}" style="float: left;max-width: 235px;">作品：{$model.model_name}</h2>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="videopic">
+                <div class="pic"><img id="testPic" src="{$model.img}">
+                </div>
+                <a href="javascript:previewLayer({$model.id}, 0);">
+                    <div class="overlay"><img src="/static/index/images/bfico.png"></div>
+                </a>
+            </div>
+            <div class="scmuncont">
+                <em>素材</em><i class="spc">{$num.img_num}</i><i class="wrd">{$num.text_num}</i>
+                <!--<ins id="auto-tab" class="on">自动切换素材</ins>-->
+            </div>
+            <!--<div class="jdtcont">-->
+                <!--<b>进度</b>-->
+                <!--<div class="bar">-->
+                    <!--<div class="tiao"></div>-->
+                    <!--<div class="ysb" style="width: 0%"></div>-->
+                <!--</div>-->
+                <!--<span id="work-progress" style="display: block"><i id="image-edited">0</i>/30</span>-->
+                <!--<span id="work-complete" style="color: #4ad4c4; display: none"><i class="icon-flag"-->
+                                                                                  <!--style="color: #4ad4c4"></i>&nbsp;完成</span>-->
+            <!--</div>-->
+        </div>
+        <!--<div style="display: none" class="piclistcont">-->
+            <!--<ul id="scenes-thumb">-->
+                <!--<li id="scenes-thumb-1" data-scene-id="1">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>1</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-2" data-scene-id="2">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>2</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-3" data-scene-id="3">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>3</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-4" data-scene-id="4">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>4</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-5" data-scene-id="5">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>5</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-6" data-scene-id="6">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>6</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-7" data-scene-id="7">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>7</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-8" data-scene-id="8">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>8</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-9" data-scene-id="9">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>9</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-10" data-scene-id="10">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>10</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-11" data-scene-id="11">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>11</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-12" data-scene-id="12">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>12</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-13" data-scene-id="13">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>13</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-14" data-scene-id="14">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>14</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-15" data-scene-id="15">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>15</i>-->
+                <!--</li>-->
+                <!--<li id="scenes-thumb-16" data-scene-id="16">-->
+                    <!--<img src="/static/index/other/resize,m_fixed,h_144,w_256,color_CCCCCC"><i>16</i>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+    <div class="maincont">
+        <div class="pslitcont" id="scenes-detail" data-path="lw170822_2" data-status="0"
+             data-video="" data-image="{$num.img_num}" data-text="{$num.text_num}"
+             data-video_edit="0" data-text_edit=""
+             data-sce_edit="" data-image_v="30" data-image_h="0">
+            {volist name="scenes" id="sce"}
+            <div class="zprt" id="scene_{$sce.id}" data-scene-id="{$sce.id}" data-name="sce_{$sce.id}"
+                 data-title="{$sce.scene_name}" data-length="" data-text=""
+                 data-image=""
+                 data-video="" data-status="" data-scene_edit=""
+                 data-text_edit="" data-image_edit=""
+                 data-video_edit="" data-thumb="hLijgtO0ey.jpg">
+                <div class="smtles">{$sce.scene_name}</div>
+                <div class="contms clearfix">
+                    {if condition="$sce['texts'] neq ''"}
+                    {volist name="sce['texts']" id="text"}
+                    <div class="sprt" id="material_text_{$text.id}" title="单击编辑文字" data-scene-id="{$sce.id}" data-sce-mat-id="{$sce.id}"
+                         data-material-id="1" data-source="" data-type="text"
+                         data-content="{$text.old_text}" data-new_content=""
+                         data-size_content="{$text.max}" data-text_id="{$text.id}" onclick="textEdit(this)">
+                        <div class="words">{$text.text}</div>
+                        <!--<div class="overlay flex-center"><i class="icon-pencil"></i></div>-->
+                    </div>
+                    {/volist}
+                    {/if}
+                    {if condition="$sce['images']"}
+                    {volist name="sce['images']" id="img"}
+                    <div class="sprt work-image" id="material_img_{$img.id}"
+                         title="宽高比{$img.width} : {$img.height}，单击添加图像" data-scene-id="{$sce.id}"
+                         data-sce-mat-id="{$sce.id}" data-material-id="{$img.id}"
+                         {if condition="$img.is_edit"} data-new_source="{$img.img}" ondblclick="imgEdit(this)" {else\} data-new_source="" onclick="imgAdd(this,0)" {/if} data-img_id="{$img.id}"
+                         data-height="{$img.height}" data-width="{$img.width}" data-type="image"  data-source="{$img.old_image}" >
+                        <div class="pic flex-center">
+                            <!--<img data-has-image="0" src="images/wpic.png">-->
+                            <img {if condition="$img.is_edit"} data-has-image="1" style="opacity: 1" {else\} data-has-image="0" style="opacity: 0.35"  {/if} src="{$img.thum_img}">
+                        </div>
+                    </div>
+                    {/volist}
+                    {/if}
+                </div>
+            </div>
+            {/volist}
+            <!--<input id="material-count" type="hidden" value="43"/>-->
+            <!--<input id="alioss-domain" type="hidden" value="http://res.chuanying520.com/"/>-->
+            <input id="temp-bgm" type="hidden" value="0"/>
+            <input id="temp-id" type="hidden" value="{$productid}"/>
+            <!--<input id="template-path" type="hidden" value="template/lw170822_2/"/>-->
+            <input id="template-len" type="hidden" value="31"/>
+            <input id="music-len" type="hidden" value="0"/>
+            <!--<input id="music-start" type="hidden" value="0"/>-->
+            <input id="model_num" type="hidden" value="{$model.model_num}"/>
+        </div>
+    </div>
+    <div class="rightcont" style="display: noneSS">
+        <div class="contms fl" id="material-image" data-load-img="0">
+        </div>
+        <div class="contms fl" id="material-music" data-load-music="0">
+            <div class="smtitls">
+                <ul class="clearfix" id="music-nav">
+                    <li class="on" data-content="public-music" id="nav-public-music"><a
+                            href="javascript:void(0);">音乐库</a>
+                    </li>
+                    <li data-content="private-music" data-load-music="0" id="nav-private-music"><a
+                            href="javascript:void(0);">我的音乐</a></li>
+                </ul>
+            </div>
+            <div class="cmt clearfix">
+                <div class="musicont">
+                    <div class="dqzprt">
+                        <div class="title" id="current-music-title">
+                            <ins>当前背景音乐</ins>
+                        </div>
+                        <div class="cont">
+                            <div id="current-music" {if condition="$music neq ''"} data-music="{$music.msc}" {/if}>
+                                {if condition="$music eq ''"}
+                                <em><i class="icon-music"></i></em>
+                                <a title="默认音乐">默认音乐</a>
+                                {else/}
+                                <em onclick="bgm_play(this)">
+                                    <i class="icon-play"></i>
+                                </em>
+                                <a title="{$music.name}">{$music.name}</a>
+                                {/if}
+                            </div>
+                            {if condition="$music neq ''"}
+                            <ins onclick="rec_bgm()" id="rec-bgm"><i class="icon-repeat tips" aria-describedby="tipsy" tabindex="0"></i></ins>
+                            {/if}
+                            <audio src="" id="player" style="display: none" loop="loop">
+                                您的浏览器不支持 audio 标签。
+                            </audio>
+                        </div>
+                    </div>
+                    <div class="listm" id="private-music" style="display: none">
+                    </div>
+                    <div class="listm" id="public-music">
+                    </div>
+                </div>
+            </div>
+            <div class="btns" id="music-container">
+                <a href="javascript:void(0);" id="upload-music" title="请上传小于10M的mp3格式的音频文件，最多上传10首">上传音乐</a>
+                <a href="javascript:void(0);" id="waiting-music" class="wmxuploadbtn" style="display: none"><i>上传中……</i>
+                    <div class="music-progress-bar"></div>
+                </a>
+            </div>
+        </div>
+        <div class="titlems fr">
+            <ul id="material-tab" class="unselectable">
+                <li class="on" data-content="material-image"><i class="icon-picture"></i><em>图片</em></li>
+                <li data-content="material-music" ><i class="icon-music"></i><em>音乐</em></li>
+                <li data-content="tutorial" style="display: none"><i class="icon-compass"></i><em>教程</em></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?197f2598b45b4c4ed5fc2bcf8460e102";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script>
+    var temp_id = $('#temp-id').val();
+    var model_num = $('#model_num').val();
+    //拖拽状态
+    var music_dragging = false;
+    var dragging = false;
+    var auto_scroll = false;
+    var drag_type = 0;//拖拽类型 0从素材库拖到工作区 1工作区内部拖动
+    //是否允许放置
+    var droppable = false;
+    var cur_music_nav = 'nav-public-music';
+    var temp_bgm = parseInt($('#temp-bgm').val());
+    var temp_len = parseInt($('#template-len').val()); //模板时长
+    var music_len = get_sec($('#music-len').val()); //背景音乐时长
+    var music_start = parseInt($('#music-start').val()); //音乐开始时间 单位s
+    var old_music_start = music_start;
+    //是否允许点击提交
+    var commitable = true;
+    //鼠标按下时位置
+    var originX, originY;
+    //原被拖拽对象的偏移量
+    var offsetX, offsetY, offsetY_after_scroll;
+    //拖拽原对象和目标对象
+    var fromObj, toObj;
+    //拖拽对象实时的偏移量
+    var new_offsetX, new_offsetY;
+    //被拖动对象容器的滚动距离
+    var fromObj_scrollTop;
+    //滚动条自动滚动状态
+    var auto_scroll = false;
+    //自动滚动计时器
+    var i_scroll;
+    //被拖动对象容器的偏移量
+    var fromObj_offsetTop;
+    var fromObj_offsetLeft;
+    var fromObj_offsetRight;
+    var fromObj_offsetBottom;
+    var toObj_offsetTop;
+    var toObj_offsetBottom;
+    var max_scrollTop;
+    var autoTab = true;
+    $('#upload-music').tipsy({gravity: 's', offset: 5});
+    $('.tips').tipsy({gravity: 's'});
+    function get_sec(t) {
+        var tmp_arr = t.split(':');
+        return tmp_arr[1] ? parseInt(tmp_arr[0]) * 60 + parseInt(tmp_arr[1]) : parseInt(tmp_arr[0]);
+    }
+</script>
+    <!--//作品id-->
+    <!--var temp_id = $('#temp-id').val();-->
+    <!--var timer = null;-->
+    <!--//保存标题，用于后续标题切换-->
+    <!--var _title = document.title;-->
+    <!--//场景信息-->
+     <!--var G_scenes = {};-->
+
+    <!--//上次修改时间-->
+    <!--var G_last_save = 0;-->
+    <!--var G_last_render = 0;-->
+    <!--var G_status_complete = parseInt(1);-->
+    <!--var G_status_preview = parseInt(0);-->
+    <!--var G_status_pay = parseInt(0);-->
+    <!--var temp_update = 0;-->
+    <!--var screen_type = G_scenes.screentype === undefined ? 2 : parseInt(G_scenes.screentype);-->
+    <!--//模板id-->
+    <!--var t_id = 518;-->
+    <!--//正在编辑作品id-->
+    <!--var cur_material_id = 0;-->
+    <!--//拖拽状态-->
+    <!--var dragging = false;-->
+    <!--var music_dragging = false;-->
+    <!--//拖拽类型 0从素材库拖到工作区 1工作区内部拖动-->
+    <!--var drag_type = 0;-->
+    <!--//是否允许放置-->
+    <!--var droppable = false;-->
+    <!--//是否允许点击提交-->
+    <!--var commitable = true;-->
+    <!--//鼠标按下时位置-->
+    <!--var originX, originY;-->
+    <!--//原被拖拽对象的偏移量-->
+    <!--var offsetX, offsetY, offsetY_after_scroll;-->
+    <!--//拖拽原对象和目标对象-->
+    <!--var fromObj, toObj;-->
+    <!--//拖拽对象实时的偏移量-->
+    <!--var new_offsetX, new_offsetY;-->
+    <!--//被拖动对象容器的滚动距离-->
+    <!--var fromObj_scrollTop;-->
+    <!--//滚动条自动滚动状态-->
+    <!--var auto_scroll = false;-->
+    <!--//自动滚动计时器-->
+    <!--var i_scroll;-->
+    <!--//被拖动对象容器的偏移量-->
+    <!--var fromObj_offsetTop;-->
+    <!--var fromObj_offsetLeft;-->
+    <!--var fromObj_offsetRight;-->
+    <!--var fromObj_offsetBottom;-->
+    <!--var toObj_offsetTop;-->
+    <!--var toObj_offsetBottom;-->
+    <!--//记录当前选中的导航标签-->
+    <!--var cur_music_nav = 'nav-public-music';-->
+    <!--var max_scrollTop;-->
+    <!--var autoTab = true;-->
+    <!--var music_len = get_sec($('#music-len').val()); //背景音乐时长-->
+    <!--var temp_len = parseInt($('#template-len').val()); //模板时长-->
+    <!--var music_start = parseInt($('#music-start').val()); //音乐开始时间 单位s-->
+    <!--var old_music_start = music_start;-->
+    <!--var temp_bgm = parseInt($('#temp-bgm').val());-->
+    <!--$('#upload-music').tipsy({gravity: 's', offset: 5});-->
+    <!--$('.tips').tipsy({gravity: 's'});-->
+
+    <!--/**-->
+     <!--* 分秒转化成秒-->
+     <!--* @param t-->
+     <!--*/-->
+    <!--function get_sec(t) {-->
+        <!--var tmp_arr = t.split(':');-->
+        <!--return tmp_arr[1] ? parseInt(tmp_arr[0]) * 60 + parseInt(tmp_arr[1]) : parseInt(tmp_arr[0]);-->
+    <!--}-->
+
+<script type="text/javascript" src="/static/index/js/video-modal.min.js?ver=1516071615"></script>
+<script type="text/javascript" src="/static/index/js/member-video-pay.min.js?ver=1517979473"></script>
+<script type="text/javascript" src="/static/index/js/member-video-home.min.js?ver=1517623502"></script>
+</html>

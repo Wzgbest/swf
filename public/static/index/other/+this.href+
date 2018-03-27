@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>系统提示</title>
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<style>
+body { margin:0; padding:0; font-size:14px; font-family:'Microsoft Yahei',Tahoma,'Simsun'; line-height:150%; }
+.panel { width:500px; margin:100px auto auto;}
+.panel-danger { border-color: #FF8787;}
+.panel-danger .panel-heading { background:#E80101; color:#FFF;}
+</style>
+</head>
+
+<body>
+<div class="panel panel-primary">
+    <div class="panel-heading">系统提示</div>
+    <div class="panel-body">
+        <p>当前作品不存在</p>
+        <p>
+                        <a href="/member/video/my_work/2.html">系统正自动跳转，如果不能跳转，请点击此处</a>
+                    </p>
+    </div>
+</div>
+<script type="text/javascript">
+var referer = '/member/video/my_work/2.html';
+if(referer !== ''){
+    setTimeout(function(){
+        window.location.href = referer;
+    }, 1000);
+}else{
+    setTimeout(function(){
+        history.go(-1);
+    }, 4000);
+}
+</script>
+</body>
+<script type="text/javascript" src="//s.union.360.cn/191004.js" async defer></script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?197f2598b45b4c4ed5fc2bcf8460e102";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</html>

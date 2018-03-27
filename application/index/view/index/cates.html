@@ -1,0 +1,452 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="">
+    <title>传影DIY_在线视频制作_diy婚礼视频_电子相册_企业宣传片 - 传影DIY视频chuanying520.com</title>
+    <meta name="keywords"
+          content="传影DIY,婚礼视频制作,婚礼电子相册模板,婚礼电子相册制作,婚礼短片制作,婚礼开场片,婚礼预告片,婚礼视频模版,成长感恩片,婚礼mv,成长mv,照片视频制作,电子相册制作,在线视频制作,相册视频制作,企业宣传片,电子相册,照片视频,宝宝成长,生日祝福,同学聚会,求婚表白,毕业视频,旅行视频">
+    <meta name="description" content="传影DIY，零基础，上传照片和视频，即可快速制作精美视频，如婚礼视频、电子相册、开场视频、企业宣传片、宝宝成长记录、年会视频、求婚表白、毕业视频、旅行视频等">
+    <link href="/static/index/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/boots.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/home_new.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/login_modal.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/index/css/help.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/static/index/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/jquery.tipsy.min.js"></script>
+    <link href="/static/index/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/index/css/jquery.tipsy.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/index/js/common.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/common-modal.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/login.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/slidepic.js"></script>
+    <!--<style>
+        .tipsy-inner {
+            background-color: #4DD3C5;
+        }
+        .tipsy-arrow-s {
+            border-top-color: #4DD3C5;
+        }
+    </style>-->
+</head>
+<body>
+{include file="/common/lists"}
+<script>
+    var hour = new Date().getHours();
+    var timeRegion;
+    if (hour >= 4 && hour < 7) {
+        timeRegion = '凌晨好';
+    } else if (hour >= 7 && hour < 8) {
+        timeRegion = '早晨好';
+    } else if (hour >= 8 && hour < 12) {
+        timeRegion = '上午好';
+    } else if (hour >= 12 && hour < 14) {
+        timeRegion = '中午好';
+    } else if (hour >= 14 && hour < 18) {
+        timeRegion = '下午好';
+    } else if (hour >= 18 && hour < 23) {
+        timeRegion = '晚上好';
+    } else {
+        timeRegion = '深夜好';
+    }
+    console.log('%c^*(- -)*^ ' + timeRegion, 'color: #4DD3C5;font-size:50px;');
+    var user_profile = $('#user-profile');
+    user_profile.text(user_profile.text() + ', ' + timeRegion);
+    $('.tpcont').hover(function () {
+        setTimeout(function () {
+            $('.tpbubble').stop().animate({'right': '127px'});
+        }, 200);
+    }, function () {
+        setTimeout(function () {
+            $('.tpbubble').stop().animate({'right': '-8px'});
+        }, 200);
+    });
+</script>
+<script type="text/javascript" src="/static/index/js/video-modal.min.js"></script>
+<!--这个插件是瀑布流主插件函数必须-->
+<script type="text/javascript" src="/static/index/js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="/static/index/js/laydate.js"></script>
+<link rel="stylesheet" href="/static/index/css/font_440905_anx5ata481714i.css">
+<style>
+    .right-nav {
+        display: none;
+        position: fixed;
+        /*right: 300px;*/
+        bottom: 50px;
+    }
+    .right-nav a {
+        display: block;
+        background-color: #696969;
+        height: 50px;
+        border-radius: 25px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    .right-nav a:hover {
+        background-color: #4addc1;
+    }
+    .hfvideo .searchtype input {
+        margin-top: 4px;
+        height: 30px;
+        width: 140px;
+        color: #696969;
+        padding-left: 5px;
+    }
+    .shuping img {
+        height: 500px;
+    }
+    .hengping img {
+        height: 158px;
+    }
+    .fangping img {
+        height: 281px;
+    }
+</style>
+<script>
+    var timer = {};//控制各个模板的图片轮播
+    var i = 0;
+    var ali_domain = "";
+    function previewVideo(_obj) {
+        var id = parseInt($(_obj).data('id'));
+        i = 0;
+        timer[id] = false;
+        previewLayer(id, 1);
+    }
+    function show_thumb(_obj) {
+        var id = parseInt($(_obj).data('id'));
+        timer[id] = true;
+        var img = $("#scene-" + id);
+        $(_obj).children('.mask').hide();
+        var load_thumbs = $(_obj).data('load_thumbs');
+        if (load_thumbs === undefined) {
+            $.post('/home/home/getScenes', {'id': id}, function (response) {
+                if (response.error) {
+                    diybox.alert(response.data);
+                    return false;
+                }
+                var scenes = eval("(" + response.data + ")");
+                $.each(scenes.scenes, function (i, v) {
+                    var html = '<img id="scene-' + id + '-' + i + '" src="' + ali_domain + 'template/' + scenes.path + '/' + v.thumb + '?x-oss-process=image/resize,w_281">';
+                    img.parent().append(html);
+                });
+                $(_obj).data('load_thumbs', 1);
+                show_scenes(img, id);
+            }, 'json');
+        } else {
+            show_scenes(img, id);
+        }
+    }
+    function show_scenes(img, id) {
+        if (timer[id]) {
+            img.hide().siblings('img').hide().eq(i).show();
+            if (i === img.siblings('img').length - 1) {
+                i = 0;
+            } else {
+                i++;
+            }
+            setTimeout(function () {
+                show_scenes(img, id);
+            }, 500);
+        } else {
+            img.show().siblings('img').hide();
+        }
+    }
+    function hide_thumb(_obj) {
+        i = 0;
+        $(_obj).children('.mask').show();
+        var id = parseInt($(_obj).data('id'));
+        timer[id] = false;
+    }
+    //分类变化
+    /*function typeChange(cate,type,obj) {
+        $(obj).addClass('active').siblings().removeClass("active");
+        $("#keywords").val('');
+        $("#type").val(type);
+        $("#worksForm").submit();
+    }*/
+    //视屏形状变化
+    /*function screentypeChange(screentype,obj) {
+        $(obj).addClass('on').siblings().removeClass("on");
+        $("#keywords").val('');
+        $("#screentype").val(screentype);
+        $("#worksForm").submit();
+    }*/
+    /**
+     * 时长条件变化
+     * @param hour
+     */
+    /*function hourChange(hour,obj) {
+        $(obj).addClass('on').siblings().removeClass("on");
+        $("#keywords").val('');
+        $("#hour").val(hour);
+        $("#worksForm").submit();
+    }*/
+    /**
+     * 搜索
+     */
+    function searchBtnClick() {
+        var keywords = $('#keywords').val();
+        if (keywords) {
+            var Request = GetRequest();
+            Request.keywords = keywords;
+            var url = SetRequest(Request);
+            window.location.href = '/home/home/all_works.html?' + url;
+        }
+    }
+    /**
+     * 秒转化成：分：秒形式
+     * @param s
+     */
+    function second_format(s) {
+        var min = Math.floor(s / 60);
+        var sec = s % 60;
+        if (sec < 10) sec = '0' + sec;
+        return min + ':' + sec;
+    }
+    function gotoTop() {
+        $("html,body").animate({"scrollTop": "0px"}, 800);
+    }
+</script>
+<script type="text/javascript">
+    //瀑布流布局
+    $(document).ready(function () {
+        $('.order-i').tipsy({gravity: 's', offset: 5});
+        $('.price').tipsy({gravity: 's', offset: 5});
+        var $container = $('#waterfull');
+        $container.imagesLoaded(function () {
+            $container.masonry({
+                itemSelector: '.item',
+                columnWidth: 30 //每两列之间的间隙为5像素
+            });
+        });
+        var t = $("#keywords").val();
+        $("#keywords").keydown(function (e) {
+            if (e.keyCode === 13) {
+                searchBtnClick();
+            }
+        }).val('').focus().val(t);
+        $(".price").keydown(function (e) {
+            if (e.keyCode === 13) {
+                var tid = $(this).data('tid');
+                var price = $(this).val();
+                $.post('/home/home/setPrice', {'tid': tid, 'price': price}, function (response) {
+                    if (response.error) {
+                        diybox.alert(response.msg);
+                        return false;
+                    }
+                    history.go(0);
+                }, 'json');
+            }
+        });
+    });
+</script>
+<div class="smbaner" style="background: url(/static/index/images/kzmkmdicwt.jpg) no-repeat center;">
+    <div>
+        <span class="title">
+            记录人生重要时刻，珍藏美好回忆        </span>
+    </div>
+    <div>
+        <span class="tag">婚礼 </span>
+        <span class="tag">宝宝 </span>
+        <span class="tag">生日 </span>
+        <span class="tag">祝福 </span>
+        <span class="tag">表白</span>
+    </div>
+</div>
+<div class="hfvideo">
+    <!--<form id="worksForm" method="get" action="/home/home/all_works.html">-->
+    <div class="videotype">
+        <div class="wrap clearfix">
+            <!--<input type="hidden" id="cate" name="cate" value="3" />
+            <input type="hidden" id="type" name="type" value="0"/>
+            <input type="hidden" id="screentype" name="screentype" value="0"/>
+            <input type="hidden" id="hour" name="hour" value="0"/>
+            <input type="hidden" id="aid" name="aid" value="0"/>
+            <input type="hidden" id="st" name="st" value="0"/>
+            <input type="hidden" id="et" name="et" value="0"/>-->
+            <a class="active quanbu  " href="/index/index/cates"><i class=" iconfont quanbu"></i>全部</a>
+            <a class=" " href="/index/index/cates.html?cate=3&type=24">
+                <i class=" iconfont icon-hunliji"></i>婚礼爱情
+            </a>
+            <!--<a class=" " href="/home/home/all_works.html?cate=3&type=47">-->
+                <!--<i class=" iconfont icon-tubiaozhizuomoban"></i>浪漫表白-->
+            <!--</a>-->
+            <!--<a class=" " href="/home/home/all_works.html?cate=3&type=17">-->
+                <!--<i class=" iconfont icon-baby"></i>萌娃 </a>-->
+            <!--<a class=" " href="/home/home/all_works.html?cate=3&type=18">-->
+                <!--<i class=" iconfont icon-iconfontjiaoyubeijing"></i>青春校园-->
+            <!--</a>-->
+            <!--<a class=" " href="/home/home/all_works.html?cate=3&type=19">-->
+                <!--<i class=" iconfont icon-xiezhen"></i>个人秀-->
+            <!--</a>-->
+            <!--<a class=" " href="/home/home/all_works.html?cate=3&type=25">-->
+                <!--<i class=" iconfont icon-geifumu"></i>家庭-->
+            <!--</a>-->
+            <!--<a class=" " href="/home/home/all_works.html?cate=3&type=31">-->
+                <!--<i class=" iconfont icon-lvxing"></i>旅行相册-->
+            <!--</a>-->
+        </div>
+    </div>
+    <div class="searchtype">
+        <div class="wrap pr">
+            <!-- <div class="screentype clearfix">
+                 <span>分类：</span>
+                 <a class="on" href="/home/home/all_works.html?cate=3">全部</a>
+                 <a class="" href="/home/home/all_works.html?cate=3&screentype=1">横屏</a>
+                 <a class="" href="/home/home/all_works.html?cate=3&screentype=2">竖屏</a>
+                 <a class="" href="/home/home/all_works.html?cate=3&screentype=3">方屏</a>
+             </div>-->
+            <div class="timetype clearfix">
+                <span>时间：</span>
+                <a class="on" href="/index/index/cates">全部</a>
+                <a class="" href="/index/index/cates">30秒以内</a>
+                <a class="" href="/index/index/cates">30~60秒</a>
+                <a class="" href="/index/index/cates">60~120秒</a>
+                <a class="" href="/index/index/cates">120秒以上</a>
+            </div>
+            <div class="searchbox pa" style="display:none;">
+                <input type="text" id="keywords" name="keywords" value="" placeholder="请输入关键字">
+                <a href="javascript:;" onclick="searchBtnClick();"></a>
+            </div>
+        </div>
+    </div>
+    <!--</form>-->
+    <div class="videolist">
+        <div class="waterfull wrap clearfix" id="waterfull" style="width:1200px;min-height: 600px;">
+            <ul>
+                {volist name="list" id="li"}
+                <li class="item">
+                    <a href="javascript:void(0);" onclick="previewVideo(this)" ondragstart="return false" data-id="{$li.id}">
+                        <em data-id="{$li.id}" class="hengping"><b></b>
+                            <!--onmouseenter="show_thumb(this)" onmouseleave="hide_thumb(this)"-->
+                            <div class="mask" style="position: absolute;left: 0;width: 263px;top: 0;bottom: 0;background:url('/static/index/images/mask.png') no-repeat left bottom rgba(0,0,0,.2);background-size:100% 100%"></div>
+                            <img id="scene-518" src="{$li.img}" style="display: block;">
+                        </em>
+                        <p>{$li.model_name}</p>
+                        <div class="videoinfo clearfix">
+                            <!--<i class="textnum">34</i>-->
+                            <!--<i class="picsnum">9</i>-->
+                            <span class="length">{$li.time}</span>
+                        </div>
+                        <div class="videoadd clearfix">
+                            <button>立即使用</button>
+                        </div>
+                    </a>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+    <div class="pages" style="display: none">
+        <ul class="pagination">
+            <li class="disabled"><span>&laquo;</span></li>
+            <li class="active"><span>1</span></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=2">2</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=3">3</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=4">4</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=5">5</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=6">6</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=7">7</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=8">8</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=9">9</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=10">10</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=11">11</a></li>
+            <li><a href="/home/home/all_works/3.html?cate=3&amp;page=2">&raquo;</a></li>
+        </ul>
+    </div>
+</div>
+<div class="right-nav">
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=2850203311&site=qq&menu=yes" target="_blank" title="联系客服">
+        <img src="/static/index/images/qqico1.png" alt="">
+    </a>
+    <!--<a href="#top" target="_self" title="回到顶部">
+        <img src="/static/index/images/gotopico.png" alt="">
+    </a>-->
+    <a href="javascript:gotoTop();" title="回到顶部">
+        <img src="/static/index/images/gotopico.png" alt="">
+    </a>
+</div>
+<script>
+    laydate.render({
+        elem: '#start-time', //指定元素
+        type: 'datetime',
+        done: function (value, date) {
+            var end = $('#end-time').val();
+            var st = Date.parse(new Date(value)) / 1000;
+            var et = Date.parse(new Date(end)) / 1000;
+            var Request = GetRequest();
+            Request.st = st;
+            Request.et = et;
+            var url = SetRequest(Request);
+            window.location.href = '/home/home/all_works.html?' + url;
+        }
+    });
+    laydate.render({
+        elem: '#end-time', //指定元素
+        type: 'datetime',
+        done: function (value, date) {
+            var start = $('#start-time').val();
+            var st = Date.parse(new Date(start)) / 1000;
+            var et = Date.parse(new Date(value)) / 1000;
+            var Request = GetRequest();
+            Request.st = st;
+            Request.et = et;
+            var url = SetRequest(Request);
+            window.location.href = '/home/home/all_works.html?' + url;
+        }
+    });
+    function setTop(obj, val) {
+        var msg = $(obj).data('msg');
+        var tid = $(obj).data('tid');
+        cancelBubble();
+        diybox.confirm({
+            message: '确认' + msg + '吗？',
+            closeBtn: false,
+            yes: function () {
+                $.post('/home/home/setTop', {'tid': tid, 'val': val}, function (response) {
+                    if (response.error) {
+                        diybox.alert(response.msg);
+                        return false;
+                    }
+                    history.go(0);
+                }, 'json');
+            }
+        });
+    }
+    function priceBlur(obj) {
+        $(obj).val($(obj).data('price').toFixed(2));
+    }
+</script>
+{include file="/common/footer"}
+<!--<a href="https://www.wjx.cn/jq/18232327.aspx" class="survey" target="_blank">
+	<img src="/static/index/images/survey.png" alt="">
+</a>-->
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?197f2598b45b4c4ed5fc2bcf8460e102";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<span style="display: none;"><script src="/static/index/js/z_stat.php" language="JavaScript"></script></span>
+<script type="text/javascript" src="/static/index/js/191004.js" async defer></script>
+<script>
+    jQuery(".indcase .cont").slide({
+        titCell: ".hd ul",
+        mainCell: ".bd ul",
+        autoPage: true,
+        effect: "left",
+        autoPlay: true,
+        scroll: 3,
+        vis: 3,
+        delayTime: 1000,
+        pnLoop: false,
+        trigger: "click"
+    });
+</script>
+</body>
+</html>

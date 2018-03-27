@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>传影diy_404页面不存在 - www.chuanying520.com</title>
+<meta name="keywords" content="传影diy,404,页面不存在">
+<meta name="description" content="传影diy，您要找的页面不存在，请浏览其他页面">
+<style type="text/css">
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, img, dl, dt, dd, table, th, td, blockquote, fieldset, div, strong, label, em{margin:0; padding:0; border:0; }
+ul, ol, li{list-style:none; }
+input, button{margin:0; font-size:12px; vertical-align:middle; }
+body{font:12px microsoft yahei, arial, helvetica, sans-serif  arial, helvetica, sans-serif; margin:0; color:#868686; }
+table{border-collapse:collapse; border-spacing:0; }
+a{text-decoration:none; outline:none; color:#868686;  }
+img{-webkit-transition:all 400ms ease-out; -mozilla-transition:all 400ms ease-out; -ms-transition:all 400ms ease-out; -o-transition:all 400ms ease-out; transition:all 400ms ease-out; }
+a:hover{text-decoration:none; -moz-transition:color .4s linear; -webkit-transition:color .4s linear; transition:color .35s linear; color:#ffb800 }
+.cl{height:0; font-size:1px; clear:both; line-height:0; }
+.none{display:none}
+*:focus{outline:none}
+i,em,ins,u{font-style:normal; text-decoration:none }	
+nav,footer,section,header,article{display:block; }
+.wraps{width:1200px; margin:0 auto; }
+.fl{float:left}
+.fr{float:right}
+.pr{position:relative}
+.pa{position:absolute}
+.oh{ overflow:hidden; }
+.clearfix{*zoom:1; }
+.clearfix:before,.clearfix:after{display:table;content:"";line-height:0; }
+.clearfix:after{clear:both; }
+.bgfff{ background:#fff}
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button{-webkit-appearance:none; }
+::-webkit-scrollbar{width:10px;height:10px; }
+::-webkit-scrollbar-track{background:#f1f1f1; }
+::-webkit-scrollbar-track:hover{background:#eee; }
+::-webkit-scrollbar-thumb{border-radius:10px;background:#b9b9b9; }
+::-webkit-scrollbar-thumb:hover{background:#747474; }
+::-webkit-scrollbar-thumb:active{background:#555; }
+.wrap{width:1000px;margin:0 auto;}
+.main404{ width:1000px; height:486px; overflow:hidden; position:fixed; top:50%; left:50%; margin-top:-243px; margin-left:-500px}
+.main404 .picmct{ width:513px; position:relative;background: #4DD3C5}
+.main404 .picmct img{ display:block;}
+.main404 .word{padding-top:66px;}
+.main404 .word h1{ display:block; font-size:40px; color:#626262; padding-bottom:20px; font-weight:normal} 
+.main404 .word h2{ display:block; font-size:25px; color:#626262; padding-bottom:46px; font-weight:normal}
+.main404 .word .link{ padding-left:10px; font-size:18px;}
+.main404 .word .link a{ color:#4DD3C5}
+.main404 .word .link span{ display:block; padding:12px 0 12px;}
+</style>
+</head>
+
+<body>
+<div class="main404">
+	<div class="picmct fl">
+    	<a href="http://www.chuanying520.com" title="传影diy" target="_blank"><img src="/static/images/404.png" /></a>
+    </div>
+    <div class="word fr">  
+    	
+    	<h1 title="404页面不存在">您要找的东东不存在！</h1>
+        <h2 title="页面弄丢了">哎哟我去，找不到了路了...</h2>
+        <div class="link">
+        	<span><a href="http://www.chuanying520.com" title="返回傲视网首页">》 回到大本营 点这里</a></span>
+            <span><a href="javascript:history.back();" title="返回上一个页面">》 往回走试试 点这里</a></span>
+        </div>
+    </div>
+</div>
+<span style="visibility:hidden"><script src="http://v7.cnzz.com/stat.php?id=4494061&web_id=4494061 
+
+" language="JavaScript"></script></span>
+</body>
+</html>

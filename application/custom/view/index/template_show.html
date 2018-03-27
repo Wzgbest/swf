@@ -1,0 +1,39 @@
+﻿{include file="common/resouce"}
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 模板管理 <span class="c-gray en">&gt;</span> 模板展示 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<!--最开始写的-->
+<!--<embed src="{$info.url}" FlashVars="bcastr_xml_url=/xml/default.xml" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="500" height="300" loop="true" autostart="true">-->
+<!--修改参数的-->
+<embed style="display: block;margin: 0 auto;" src="{$info.url}" FlashVars="bcastr_xml_url={$info.xml_url}&bcastr_config=0xffffff|1|0x0066ff|20|0xffffff|0x0066ff|0x000033|4|3|3|_blank" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="500" height="300" loop="true" autostart="true">
+<div style="display: block;margin: 0 auto;">
+    <div style="text-align: center;margin-top: 10px;font-size: 8px;">可修改文字:{$info.text_num}处</div>
+    <div style="text-align: center;margin-top: 10px;font-size: 8px;">可修改图片:{$info.img_num}处</div>
+    <div style="text-align: center;margin-top: 10px;font-size: 8px;">时长:{$info.time}</div>
+    <div style="text-align: center;margin-top: 10px;font-size: 8px;">描述:{$info.content}</div>
+</div>
+<!--通过objec的不能在里边设置参数要通过param设置-->
+<!--<object classid="6BF52A52-394A-11d3-B153-00C04F79FAA6" id="scriptmain" name="scriptmain" codebase="http://download.macromedia.com/pub/shockwave/cabs/-->
+<!--flash/swflash.cab#version=6,0,29,0" width="500" height="300">-->
+    <!--<param name="movie" value="{$info.url}?bcastr_xml_url=/xml/default.xml">-->
+    <!--<param name="quality" value="high">-->
+    <!--<param name="scale" value="noscale">-->
+    <!--<param name="LOOP" value="true">-->
+    <!--<param name="menu" value="false">-->
+    <!--<param name="wmode" value="transparent">-->
+    <!--<param name="TitleBgPosition" value="1">-->
+    <!--<embed src="{$info.url}?bcastr_xml_url=/xml/default.xml" width="500" height="300" loop="false" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" salign="T" name="scriptmain" menu="false" wmode="transparent">-->
+<!--</object>-->
+
+<!--bcastr4-->
+<!--<object id="bcastr4" data="{$info.url}?xml=/xml/7192.xml" type="application/x-shockwave-flash" width="500" height="300">-->
+    <!--<param name="movie" value="{$info.url}?xml=/xml/7192.xml" />-->
+<!--</object>-->
+{include file="common/footer_common"}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/h_ui/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".portfolio-area li").Huihover();
+});
+</script>
+{include file="common/footer"}
