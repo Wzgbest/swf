@@ -16,14 +16,13 @@
         </div>
         <div class="nav fl">
             <a href="/" {eq name="cate" value="0"}class="on"{/eq}>首页</a>
-            <a href="/index/index/cates/cate/2" {eq name="cate" value="2"}class="on"{/eq}>
-                生活相册 </a>
-            <a href="/index/index/cates/cate/3" {eq name="cate" value="3"}class="on"{/eq}>
-                宣传展示 </a>
-            <a href="/index/index/cates/cate/4" {eq name="cate" value="4"}class="on"{/eq}>
-                小视频 </a>
-            <a href="/index/index/cates/cate/5" {eq name="cate" value="5"}class="on"{/eq}>
-                产品广告 </a>
+            {volist name="cates" id="vo"}
+            {eq name="$vo.pid" value="0"}
+            <a href="/index/index/cates?cate={$vo.id}" {eq name="cate" value="$vo.id"}class="on"{/eq}>
+            {$vo.name}
+            </a>
+            {/eq}
+            {/volist}
         </div>
         {if condition="$account"}
         <div class="fr dls">

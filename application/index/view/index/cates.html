@@ -192,7 +192,7 @@
             var Request = GetRequest();
             Request.keywords = keywords;
             var url = SetRequest(Request);
-            window.location.href = '/home/home/all_works.html?' + url;
+            window.location.href = '/index/index/cates?' + url;
         }
     }
     /**
@@ -266,10 +266,12 @@
             <input type="hidden" id="aid" name="aid" value="0"/>
             <input type="hidden" id="st" name="st" value="0"/>
             <input type="hidden" id="et" name="et" value="0"/>-->
-            <a class="active quanbu  " href="/index/index/cates"><i class=" iconfont quanbu"></i>全部</a>
-            <a class=" " href="/index/index/cates.html?cate=3&type=24">
-                <i class=" iconfont icon-hunliji"></i>婚礼爱情
+            <a {if condition="$type eq 0"} class="active quanbu" {/if} href="/index/index/cates?cate={$cate}"><i class=" iconfont quanbu"></i>全部</a>
+            {volist name="child" id="vo"}
+            <a {if condition="$type eq $vo.id"} class="active " {/if} href="/index/index/cates?cate={$cate}&type={$vo.id}">
+                <i class=" iconfont icon-hunliji"></i>{$vo.name}
             </a>
+            {/volist}
             <!--<a class=" " href="/home/home/all_works.html?cate=3&type=47">-->
                 <!--<i class=" iconfont icon-tubiaozhizuomoban"></i>浪漫表白-->
             <!--</a>-->
@@ -291,22 +293,22 @@
     </div>
     <div class="searchtype">
         <div class="wrap pr">
-            <!-- <div class="screentype clearfix">
-                 <span>分类：</span>
-                 <a class="on" href="/home/home/all_works.html?cate=3">全部</a>
-                 <a class="" href="/home/home/all_works.html?cate=3&screentype=1">横屏</a>
-                 <a class="" href="/home/home/all_works.html?cate=3&screentype=2">竖屏</a>
-                 <a class="" href="/home/home/all_works.html?cate=3&screentype=3">方屏</a>
-             </div>-->
-            <div class="timetype clearfix">
-                <span>时间：</span>
-                <a class="on" href="/index/index/cates">全部</a>
-                <a class="" href="/index/index/cates">30秒以内</a>
-                <a class="" href="/index/index/cates">30~60秒</a>
-                <a class="" href="/index/index/cates">60~120秒</a>
-                <a class="" href="/index/index/cates">120秒以上</a>
-            </div>
-            <div class="searchbox pa" style="display:none;">
+            <!--<div class="screentype clearfix">-->
+                 <!--<span>分类：</span>-->
+                 <!--<a class="on" href="/home/home/all_works.html?cate=3">全部</a>-->
+                 <!--<a class="" href="/home/home/all_works.html?cate=3&screentype=1">横屏</a>-->
+                 <!--<a class="" href="/home/home/all_works.html?cate=3&screentype=2">竖屏</a>-->
+                 <!--<a class="" href="/home/home/all_works.html?cate=3&screentype=3">方屏</a>-->
+             <!--</div>-->
+            <!--<div class="timetype clearfix">-->
+                <!--<span>时间：</span>-->
+                <!--<a class="on" href="/index/index/cates">全部</a>-->
+                <!--<a class="" href="/index/index/cates">30秒以内</a>-->
+                <!--<a class="" href="/index/index/cates">30~60秒</a>-->
+                <!--<a class="" href="/index/index/cates">60~120秒</a>-->
+                <!--<a class="" href="/index/index/cates">120秒以上</a>-->
+            <!--</div>-->
+            <div class="searchbox pa" style="display:none   ;">
                 <input type="text" id="keywords" name="keywords" value="" placeholder="请输入关键字">
                 <a href="javascript:;" onclick="searchBtnClick();"></a>
             </div>

@@ -77,83 +77,54 @@
         <i></i>
         <div class="btn">
             <ins></ins>
-            <a href="/index/index/cates/cate/2">立即制作</a>
+            <a href="/index/index/cates?cate=9">立即制作</a>
         </div>
         <div class="tutorial">
-            <a href="javascript:preVideoByURL('static/index/video/tutorial.mp4', 3)"><i class="fa fa-play-circle-o fa-lg"
-                                                                                   aria-hidden="true"></i>&nbsp;查看制作教程</a>
+            <a href="javascript:preVideoByURL('static/index/video/tutorial.mp4', 3)"><i class="fa fa-play-circle-o fa-lg" aria-hidden="true"></i>&nbsp;查看制作教程</a>
         </div>
     </div>
 </div>
 <div class="cjtitle">
     <div class="wrap">
         <div class="webtitles">
-            <i>生活相册</i>
-            <i>宣传展示</i>
-            <i>小视频</i>
-            <i>产品广告 </i>
+            {volist name="cates" id="vo"}
+            {eq name="$vo.pid" value="0"}
+            <i>{$vo.name}</i>
+            {/eq}
+            {/volist}
         </div>
         <div class="contm">
+            {volist name="cates" id="vo"}
+            {eq name="$vo.pid" value="0"}
             <div class="tabcmt none">
                 <!--<a href="javascript:void(0);" data-cate="3" data-type="0">全部</a>-->
-                <a href="javascript:void(0);" data-cate="2" data-type="24">婚礼爱情</a>
-                <a href="javascript:void(0);" data-cate="2" data-type="47">浪漫表白</a>
-                <a href="javascript:void(0);" data-cate="2" data-type="17">萌娃</a>
-                <a href="javascript:void(0);" data-cate="2" data-type="18">青春校园</a>
-                <a href="javascript:void(0);" data-cate="2" data-type="19">个人秀</a>
-                <a href="javascript:void(0);" data-cate="2" data-type="25">家庭</a>
-                <a href="javascript:void(0);" data-cate="2" data-type="31">旅行相册</a>
+                {volist name="cates" id="cid"}
+                {if condition="$cid.pid eq $vo.id"}
+                <a href="javascript:void(0);" data-cate="{$vo.id}" data-type="{$cid.id}">{$cid.name}</a>
+                {/if}
+                {/volist}
             </div>
-            <div class="tabcmt none">
-                <!--<a href="javascript:void(0);" data-cate="8" data-type="0">全部</a>-->
-                <a href="javascript:void(0);" data-cate="8" data-type="20">年会颁奖</a>
-                <a href="javascript:void(0);" data-cate="8" data-type="36">营销推广 </a>
-                <a href="javascript:void(0);" data-cate="8" data-type="22">企业宣传 </a>
-                <a href="javascript:void(0);" data-cate="8" data-type="27">党政汇报</a>
-                <a href="javascript:void(0);" data-cate="8" data-type="48">视频包装</a>
-                <a href="javascript:void(0);" data-cate="8" data-type="28">启动仪式</a>
-                <a href="javascript:void(0);" data-cate="8" data-type="29">Logo片头</a>
-                <a href="javascript:void(0);" data-cate="8" data-type="30">节日祝福</a>
-                <a href="javascript:void(0);" data-cate="8" data-type="32">文化旅游</a>
-            </div>
-            <div class="tabcmt none">
-                <!--<a href="javascript:void(0);" data-cate="12" data-type="0">全部</a>-->
-                <a href="javascript:void(0);" data-cate="12" data-type="34">个人</a>
-                <a href="javascript:void(0);" data-cate="12" data-type="37">推广</a>
-                <a href="javascript:void(0);" data-cate="12" data-type="21">活动</a>
-            </div>
-            <div class="tabcmt none">
-                <!--<a href="javascript:void(0);" data-cate="11" data-type="0">全部</a>-->
-                <a href="javascript:void(0);" data-cate="11" data-type="35">美妆</a>
-                <a href="javascript:void(0);" data-cate="11" data-type="16">美食</a>
-                <a href="javascript:void(0);" data-cate="11" data-type="40">服装</a>
-                <a href="javascript:void(0);" data-cate="11" data-type="42">配饰</a>
-                <a href="javascript:void(0);" data-cate="11" data-type="45">箱包</a>
-                <a href="javascript:void(0);" data-cate="11" data-type="41">婴童</a>
-                <a href="javascript:void(0);" data-cate="11" data-type="39">家居</a>
-                <a href="javascript:void(0);" data-cate="11" data-type="44">厨电</a>
-                <a href="javascript:void(0);" data-cate="11" data-type="43">运动健康</a>
-            </div>
+            {/eq}
+            {/volist}
         </div>
     </div>
 </div>
 <div class="caselist">
     <div class="wrap" id="templates-container">
         <ul class="listm clearfix">
-            {volist name="list" id="li"}
-            <li>
-                <a href="javascript:void(0);" onclick="previewVideo(this)" data-id="{$li.id}">
-                    <!--onmouseenter="show_thumb(this)" onmouseleave="hide_thumb(this)"-->
-                    <em data-id="{$li.id}">
-                    <img id="scene-518" src="{$li.img}" style="display: block;"><b></b>
-                </em>
-                <span><i>{$li.model_name}</i><ins>{$li.time}</ins><button>立即使用</button></span>
-                </a>
-            </li>
-            {/volist}
+            <!--{volist name="list" id="li"}-->
+            <!--<li>-->
+                <!--<a href="javascript:void(0);" onclick="previewVideo(this)" data-id="{$li.id}">-->
+                    <!--<em data-id="{$li.id}">-->
+                    <!--<img id="scene-518" src="{$li.img}" style="display: block;"><b></b>-->
+                <!--</em>-->
+                <!--<span><i>{$li.model_name}</i><ins>{$li.time}</ins><button>立即使用</button></span>-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--{/volist}-->
         </ul>
         <div class="btn">
-            <a href="/index/index/cates">查看更多</a>
+            <a href="/index/index/cates?cate=9">查看更多</a>
         </div>
     </div>
 </div>
@@ -174,7 +145,7 @@
             <li><i><img src="/static/index/images/lcpic3.png"></i><em>输出视频</em></li>
         </ul>
         <div class="btn">
-            <a href="/home/home/all_works/3.html">立即制作</a>
+            <a href="/index/index/cates?cate=9">立即制作</a>
         </div>
     </div>
 </div>
@@ -199,7 +170,7 @@
             $(this).addClass("on").siblings().removeClass('on');
             var cate = $(this).data('cate');
             var type = $(this).data('type');
-            // show_templates(cate, type);
+            show_templates(cate, type);
         }).eq(0).removeClass('none');
         $(".cjtitle .webtitles i").click(function () {
             $(".cjtitle .webtitles i").eq($(this).index()).addClass("on").siblings().removeClass('on');
@@ -227,8 +198,8 @@
                 html += '<li>\
                                 <a href="javascript:void(0);" onclick="previewVideo(this)" data-id="' + v.id + '">\
 									<em data-id="' + v.id + '">\
-										<img id="scene-' + v.id + '" src="' + ali_domain + v.thumb + '?x-oss-process=image/resize,m_' + resizeWay + ',h_200,w_360,color_999999&ver=' + Math.random() + '"><b></b></em>\
-									<span><i>' + v.name + '</i><ins>' + sec_format(v.hour) + '</ins><button>立即使用</button></span>\
+										<img src="' + v.img + '"><b></b></em>\
+									<span><i>' + v.model_name + '</i><ins>' + v.time + '</ins><button>立即使用</button></span>\
                             	</a>\
                             </li>';
             });
@@ -243,60 +214,6 @@
         i = 0;
         timer[id] = false;
         previewLayer(id, 1);
-    }
-    function show_thumb(_obj) {
-        var id = parseInt($(_obj).data('id'));
-        timer[id] = true;
-        var img = $("#scene-" + id);
-        var load_thumbs = $(_obj).data('load_thumbs');
-        if (load_thumbs === undefined) {
-            $.post('/index/index/getScenes', {'id': id}, function (response) {
-                if (response.error) {
-                    diybox.alert(response.data);
-                    return false;
-                }
-                var scenes = eval("(" + response.data + ")");
-                $.each(scenes.scenes, function (i, v) {
-                    var resizeWay = parseInt(scenes.screentype) === 2 || scenes.screentype === undefined ? 'fixed' : 'pad';
-                    var html = '<img id="scene-' + id + '-' + i + '" src="' + ali_domain + 'template/' + scenes.path + '/' + v.thumb + '?x-oss-process=image/resize,m_' + resizeWay + ',h_200,w_360,color_999999">';
-                    img.parent().append(html);
-                });
-                $(_obj).data('load_thumbs', 1);
-                show_scenes(img, id);
-            }, 'json');
-        } else {
-            show_scenes(img, id);
-        }
-    }
-    function show_scenes(img, id) {
-        if (timer[id]) {
-            img.hide().siblings('img').hide().eq(i).show();
-            if (i === img.siblings('img').length - 1) {
-                i = 0;
-            } else {
-                i++;
-            }
-            setTimeout(function () {
-                show_scenes(img, id);
-            }, 500);
-        } else {
-            img.show().siblings('img').hide();
-        }
-    }
-    function hide_thumb(_obj) {
-        i = 0;
-        var id = parseInt($(_obj).data('id'));
-        timer[id] = false;
-    }
-    /**
-     * 秒转化成：分：秒形式
-     * @param s
-     */
-    function sec_format(s) {
-        var min = Math.floor(s / 60);
-        var sec = s % 60;
-        if (sec < 10) sec = '0' + sec;
-        return min + '分' + sec + '秒';
     }
 </script>
 {include file="/common/footer"}

@@ -107,6 +107,19 @@
                 <i>已完成</i>
                 {/if}
             </div>
+
+            <div class="screentype clearfix">
+            <span>分类：</span>
+            <a class="on" href="/home/home/all_works.html?cate=3">全部</a>
+            <a class="" href="/home/home/all_works.html?cate=3&screentype=1">横屏</a>
+            <a class="" href="/home/home/all_works.html?cate=3&screentype=2">竖屏</a>
+            <a class="" href="/home/home/all_works.html?cate=3&screentype=3">方屏</a>
+            </div>
+            <div class="searchbox pa" style="">
+                <input type="text" id="keywords" name="keywords" value="" placeholder="请输入关键字">
+                <a href="javascript:;" onclick="searchBtnClick();"></a>
+            </div>
+
             <div class="mycaselist clearfix">
                 <div class="addpt">
                     <a href="/"><img src="/static/index/images/addicos.png"><i>创建视频</i></a>
@@ -132,16 +145,16 @@
                     <div class="word">
                         <div class="proname" style="color: #777;">
 								<span>
-									<i class="work-name" id="work-name-{$li.id}" title="{$li.model_name}">{$li.model_name}</i>&nbsp;
+									<i class="work-name" id="work-name-{$li.id}" title="{$li.model_name}">{$li.vedio_name}</i>&nbsp;
 									<!--<i class="fa fa-pencil edit-work-name" aria-hidden="true" onclick="show_name_editor(1888830);" aria-describedby="tipsy" tabindex="0"></i>-->
 								</span>
-                            <span style="display: none">
-									<input type="text" value="甜蜜家人" maxlength="25" id="work-editor-1888830">
-									<i class="fa fa-check edit-name-confirm" aria-hidden="true" style="color: green;"
-                                       title="确认" onclick="confirm_name_edit(1888830);"></i>
-									<i class="fa fa-times edit-name-cancel" aria-hidden="true" style="color: red;"
-                                       title="取消" onclick="cancel_name_edit(this);"></i>
-								</span>
+                            <!--<span style="display: none">-->
+									<!--<input type="text" value="甜蜜家人" maxlength="25" id="work-editor-1888830">-->
+									<!--<i class="fa fa-check edit-name-confirm" aria-hidden="true" style="color: green;"-->
+                                       <!--title="确认" onclick="confirm_name_edit(1888830);"></i>-->
+									<!--<i class="fa fa-times edit-name-cancel" aria-hidden="true" style="color: red;"-->
+                                       <!--title="取消" onclick="cancel_name_edit(this);"></i>-->
+								<!--</span>-->
                             <span style="float: right;">
 									<i>{if condition="$li.status eq 0"}正在编辑{elseif condition="$li.status eq 1"}编辑完成{elseif condition="$li.status eq 3"/}已输出{elseif condition="$li.status eq 4"}渲染失败{elseif condition="$li.status eq 5"}渲染中{/if}</i>
 								</span>
