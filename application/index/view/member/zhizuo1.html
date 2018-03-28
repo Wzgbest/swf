@@ -53,7 +53,7 @@
     </div>
 </div>
 <div class="editmain">
-    <div class="leftcont" style="display: none">
+    <div class="leftcont">
         <div class="preview">
             <div id="preview-title">
                 <h2 title="{$model.model_name}" style="float: left;max-width: 235px;">作品：{$model.model_name}</h2>
@@ -134,18 +134,20 @@
             <!--</ul>-->
         <!--</div>-->
     </div>
-    <style>
-        .work-image .pic i{ position: absolute;
-            bottom: 1px;
-            right: 1px;}
-    </style>
     <div class="maincont">
         <div class="pslitcont" id="scenes-detail" data-path="lw170822_2" data-status="0"
              data-video="" data-image="{$num.img_num}" data-text="{$num.text_num}"
              data-video_edit="0" data-text_edit=""
-             data-sce_edit="" data-image_v="" data-image_h="">
+             data-sce_edit="" data-image_v="30" data-image_h="0">
+            {volist name="scenes" id="sce"}
+            <div class="zprt" id="scene_{$sce.id}" data-scene-id="{$sce.id}" data-name="sce_{$sce.id}"
+                 data-title="{$sce.scene_name}" data-length="" data-text=""
+                 data-image=""
+                 data-video="" data-status="" data-scene_edit=""
+                 data-text_edit="" data-image_edit=""
+                 data-video_edit="" data-thumb="hLijgtO0ey.jpg">
+                <!--<div class="smtles">{$sce.scene_name}</div>-->
                 <div class="contms clearfix">
-                    {volist name="scenes" id="sce"}
                     {if condition="$sce['texts'] neq ''"}
                     {volist name="sce['texts']" id="text"}
                     <div class="sprt" id="material_text_{$text.id}" title="单击编辑文字" data-scene-id="{$sce.id}" data-sce-mat-id="{$sce.id}"
@@ -153,6 +155,7 @@
                          data-content="{$text.old_text}" data-new_content=""
                          data-size_content="{$text.max}" data-text_id="{$text.id}" onclick="textEdit(this)">
                         <div class="words">{$text.text}</div>
+                        <!--<div class="overlay flex-center"><i class="icon-pencil"></i></div>-->
                     </div>
                     {/volist}
                     {/if}
@@ -164,15 +167,15 @@
                          {if condition="$img.is_edit"} data-new_source="{$img.img}" ondblclick="imgEdit(this)" {else\} data-new_source="" onclick="imgAdd(this,0)" {/if} data-img_id="{$img.id}"
                          data-height="{$img.height}" data-width="{$img.width}" data-type="image"  data-source="{$img.old_image}" >
                         <div class="pic flex-center">
-                            <i class="icon-">编辑</i>
                             <!--<img data-has-image="0" src="images/wpic.png">-->
                             <img {if condition="$img.is_edit"} data-has-image="1" style="opacity: 1" {else\} data-has-image="0" style="opacity: 0.35"  {/if} src="{$img.thum_img}">
                         </div>
                     </div>
                     {/volist}
                     {/if}
-            {/volist}
                 </div>
+            </div>
+            {/volist}
             <!--<input id="material-count" type="hidden" value="43"/>-->
             <!--<input id="alioss-domain" type="hidden" value="http://res.chuanying520.com/"/>-->
             <input id="temp-bgm" type="hidden" value="0"/>
@@ -184,18 +187,17 @@
             <input id="model_num" type="hidden" value="{$model.model_num}"/>
         </div>
     </div>
-    <div class="rightcont">
+    <div class="rightcont" style="display: noneSS">
         <div class="contms fl" id="material-image" data-load-img="0">
         </div>
         <div class="contms fl" id="material-music" data-load-music="0">
             <div class="smtitls">
                 <ul class="clearfix" id="music-nav">
-                    <li data-content="private-music" data-load-music="0" id="nav-private-music"><a
-                            href="javascript:void(0);">我的音乐</a></li>
-                    <li  class="on" data-content="public-music" id="nav-public-music"><a
+                    <li class="on" data-content="public-music" id="nav-public-music"><a
                             href="javascript:void(0);">音乐库</a>
                     </li>
-
+                    <li data-content="private-music" data-load-music="0" id="nav-private-music"><a
+                            href="javascript:void(0);">我的音乐</a></li>
                 </ul>
             </div>
             <div class="cmt clearfix">
@@ -224,9 +226,9 @@
                             </audio>
                         </div>
                     </div>
-                    <div class="listm" id="private-music"style="display: none" >
+                    <div class="listm" id="private-music" style="display: none">
                     </div>
-                    <div class="listm" id="public-music" >
+                    <div class="listm" id="public-music">
                     </div>
                 </div>
             </div>
@@ -248,8 +250,15 @@
 </div>
 
 </body>
-
-
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?197f2598b45b4c4ed5fc2bcf8460e102";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 <script>
     var temp_id = $('#temp-id').val();
     var model_num = $('#model_num').val();

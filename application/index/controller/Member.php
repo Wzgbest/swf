@@ -49,7 +49,11 @@ class Member extends Controller
     {
         $cate = input('cate',0,'int');
         $status = input('status',0,'int');
+        $keyword = input('keywords','','string');
+        $page = input('page',1,'int');
         $tem = new Template();
+
+        //数据查询
         if ($status == 0)
         {
             $map = [0,1];
@@ -58,7 +62,27 @@ class Member extends Controller
         }else if ($status == 2){
             $map = [3,4];
         }
-        $my_list = $tem->getUserTemplate($this->uid,$map);
+        $where = [];
+        if ($cate){
+            $where['pr.cate'] = $cate;
+        }
+        if (!empty($keyword)){
+            $where['vedio_name'] = ['like',$keyword.'%'];
+        }
+        $limit = '11';
+        $my_list = $tem->getUserTemplate($this->uid,$map,$where,$limit);
+
+        //分类输出
+        $cateM = new CatesModel();
+        $cates = $cateM->getAllCates(['pid'=>0]);
+        if ($status == 2){
+            foreach ($cates as $k=>$v){
+                $num = $tem->getCountByCateAndUser($this->uid,$v['id']);
+                $cates[$k]['count'] = $num;
+            }
+        }
+        //分页
+        $this->assign('cates',$cates);
         $this->assign('lists',$my_list);
         $this->assign('status',$status);
         $this->assign('cate',$cate);

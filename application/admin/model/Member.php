@@ -42,8 +42,8 @@ class Member extends AdminBase
     /**
      * 查找用户 通过手机号
      */
-    public function getUserByPhone($tel)
+    public function getUserByPhone($map)
     {
-        return $this->model->table($this->table)->where(['telphone'=>$tel])->find();
+        return $this->model->table($this->table)->where($map)->find();
     }
 }

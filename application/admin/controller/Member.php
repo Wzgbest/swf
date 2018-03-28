@@ -30,25 +30,54 @@ class Member extends AdminInitialize
     public function add(){
         $result = ['status'=>0,'message'=>"添加失败"];
         $name = input("username",'','string');
-        $sex = input("sex",3,'int');
         $telphone = input("mobile",'','string');
         $email = input('email','','string');
         $password = input('password','','string');
         $time = time();
+        $level = input('level',0,'int');
+        $kt_time = input('kt_time');
+        $dq_time = input('dq_time');
+        $add_user = input('add_user','','string');
+        $com_name = input('com_name','','string');
 
         $data = [];
         $data['name'] = $name;
         $data['create_time'] = $time;
-        $data['sex'] = $sex;
         $data['telphone'] = $telphone;
         $data['email'] = $email;
         $data['password'] = md5($password);
+        $data['level'] = $level;
+        if ($kt_time) {
+            $data['kt_time'] = strtotime($kt_time);
+        }
+        if ($dq_time){
+            $data['dq_time'] = strtotime($dq_time);
+            if (!$kt_time){
+                $result['message'] = "请输入开通时间";
+                return json($result);
+            }
+            if (strtotime($dq_time)<strtotime($kt_time)){
+                $result['message'] = "请输入正确的起止时间";
+                return json($result);
+            }
+        }
+        if ($add_user){
+            $data['add_user'] = $add_user;
+        }
+        if ($com_name){
+            $data['com_name'] = $com_name;
+        }
 
         $memberM = new MemberModel();
-        $info = $memberM->getUserByPhone($data['telphone']);
+        $info = $memberM->getUserByPhone(['telphone'=>$telphone]);
 //        var_exp($info);die();
         if (!empty($info)) {
             $result['message'] = "手机号已经存在";
+            return json($result);
+        }
+        $info = $memberM->getUserByPhone(['name'=>$name]);
+        if (!empty($info)) {
+            $result['message'] = "用户名已存在";
             return json($result);
         }
         $id = $memberM->insertUser($data);
@@ -57,7 +86,6 @@ class Member extends AdminInitialize
             $result['message'] = "添加成功";
         }
         return json($result);
-//        var_exp($param,"allinfo");
     }
     public function edit(){
         $result = ['status'=>0,'message'=>"修改失败"];
@@ -149,6 +177,71 @@ class Member extends AdminInitialize
             $result['message'] = "删除成功";
         }
 
+        return json($result);
+    }
+
+    /**
+     * 用户编辑
+     */
+    public function memberEdit()
+    {
+        $id = input('id',0,'int');
+        $mem = new MemberModel();
+        $userinfo = $mem->getUserById($id);
+
+        $this->assign('info',$userinfo);
+        return view('member_edit');
+    }
+
+    /**
+     * 编辑信息
+     */
+    public function update()
+    {
+        $id = input('id',0,'int');
+        $name = input("username",'','string');
+        $telphone = input("mobile",'','string');
+        $email = input('email','','string');
+        $time = time();
+        $level = input('level',0,'int');
+        $kt_time = input('kt_time');
+        $dq_time = input('dq_time');
+        $add_user = input('add_user','','string');
+        $com_name = input('com_name','','string');
+
+        $data = [];
+        $data['name'] = $name;
+        $data['create_time'] = $time;
+        $data['telphone'] = $telphone;
+        $data['email'] = $email;
+        $data['level'] = $level;
+        if ($kt_time) {
+            $data['kt_time'] = strtotime($kt_time);
+        }
+        if ($dq_time){
+            $data['dq_time'] = strtotime($dq_time);
+            if (!$kt_time){
+                $result['message'] = "请输入开通时间";
+                return json($result);
+            }
+            if (strtotime($dq_time)<strtotime($kt_time)){
+                $result['message'] = "请输入正确的起止时间";
+                return json($result);
+            }
+        }
+        if ($add_user){
+            $data['add_user'] = $add_user;
+        }
+        if ($com_name){
+            $data['com_name'] = $com_name;
+        }
+
+        $mem = new MemberModel();
+        $res = $mem->updateUserById($id,$data);
+        if ($res){
+            $result['status'] = 1;
+            $result['message'] = "跟新成功";
+        }
         return json($result);
     }
 }

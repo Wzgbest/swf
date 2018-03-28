@@ -70,10 +70,6 @@ class Index extends Controller
         $templateM = new Template();
         $cate = input('cate', 0, 'int');
         $type = input('type', 0, 'int');
-        $page = input('page',0,'int');
-        if (!$page) {
-            $page = $this->page;
-        }
         if ($cate){
             $map['cate'] = $cate;
         }
@@ -81,7 +77,8 @@ class Index extends Controller
             $map['type'] = $type;
         }
         $map['status'] = 1;
-        $list = $templateM->getAllTemplate($map,$page);
+        $limit = $this->page;
+        $list = $templateM->getAllTemplate($map,$limit);
         $cateM = new CatesModel();
         $child_c = $cateM->getChildCatesByPid($cate);
         $this->assign('child',$child_c);
@@ -152,7 +149,7 @@ class Index extends Controller
         $map['status'] = 1;
 
         $models = $tem->getAllTemplate($map,6);
-        return ['error'=>0,'data'=>$models];
+        return ['error'=>0,'data'=>$models->getIterator()];
     }
 }
 

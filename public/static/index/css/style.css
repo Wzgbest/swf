@@ -2055,7 +2055,7 @@ input[type="submit"] {
     background: #fff;
     box-shadow: 0 0 12px #ccc;
     margin-left: 355px;
-    margin-right: 75px;
+    /*margin-right: 75px;*/
     height: 100%;
     padding: 20px 0;
     min-width: 208px;
@@ -2177,7 +2177,7 @@ input[type="submit"] {
 .editmain .rightcont {
     position: absolute;
     top: 60px;
-    right: 0;
+    left: 0;
     bottom: 0
 }
 

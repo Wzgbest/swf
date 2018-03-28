@@ -44,7 +44,7 @@ class Template extends CustomBase
      */
     //模板列表
     public function getAllTemplate($map,$limit){
-        return $this->model->table($this->table)->where($map)->order('id desc')->limit($limit)->select();
+        return $this->model->table($this->table)->where($map)->order('id desc')->paginate($limit);
     }
 
     /**
@@ -145,15 +145,16 @@ class Template extends CustomBase
     /**
      * 用户的视频
      */
-    public function getUserTemplate($uid,$status){
+    public function getUserTemplate($uid,$status,$where=[],$limit=''){
         $map['pr.userid'] = $uid;
         $map['pr.status'] = ['between',$status];
         $info = $this->model->table($this->dbprefix."products")->alias('pr')
             ->join($this->dbprefix."model md",'md.id = pr.modelid','LEFT')
             ->where($map)
+            ->where($where)
             ->field("pr.*,md.model_name,md.model_num,md.img,md.time")
-            ->order('pr.id desc')
-            ->select();
+            ->order('pr.update_time desc,pr.id desc')
+            ->paginate($limit);
 
         return $info;
     }
@@ -186,6 +187,15 @@ class Template extends CustomBase
     public function findNoEditImg($productid)
     {
         $info = $this->model->table($this->dbprefix.'images')->where(['productid'=>$productid,'is_edit'=>0])->find();
+        return $info;
+    }
+
+    /**
+     * 获取某个分类已经完成的视频数量
+     */
+    public function getCountByCateAndUser($uid,$cate)
+    {
+        $info = $this->model->table($this->dbprefix.'products')->where(['userid'=>$uid,'cate'=>$cate,'status'=>3])->count();
         return $info;
     }
 

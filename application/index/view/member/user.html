@@ -65,27 +65,76 @@
 </script>
 <script type="text/javascript" src="/static/index/js/video-modal.min.js?ver=1516071615"></script>
 <style>
-	.holiday-notice {
-		position: absolute;
-		right: -30px;
-		top: 18px;
-		width: 632px;
-		height: 54px;
-		padding: 16px 65px;
-		padding-right: 0;
-		color: #24c5b4;
-		font-size: 14px;
-		font-weight: bold;
-		background: url('/static/index/images/notice.png');
-	}
+    .holiday-notice {
+        position: absolute;
+        right: -30px;
+        top: 18px;
+        width: 632px;
+        height: 54px;
+        padding: 16px 65px;
+        padding-right: 0;
+        color: #24c5b4;
+        font-size: 14px;
+        font-weight: bold;
+        background: url('/static/index/images/notice.png');
+    }
+
+    .on {
+        color: #4addc1;
+    }
+
+    .typeclass {
+        display: inline-block;
+        float: left;
+        color: #000;
+        min-width: 0;
+    }
+
+    .typeclass a {
+        display: inline-block;
+        border: 1px solid #00CC99;
+        border-radius: 10px;
+        margin: 0 5px;
+        padding: 5px 10px;
+    }
+
+    .searchbox {
+        float: left;
+    }
+
+    .searchbox input {
+        width: 140px;
+        height: 32px;
+        border: 1px solid #00CC99;
+        margin-left: 30px;
+        border-radius: 5px 0 0 5px;
+        padding: 0 5px;
+        vertical-align: baseline
+    }
+
+    .searchbox a {
+        display: inline-block;
+        width: 60px;
+        height: 32px;
+        border: 1px solid #00CC99;
+        border-radius: 0 5px 5px 0;
+        margin-left: -5px;
+        line-height: 30px;
+        text-align: center;
+        vertical-align: top
+    }
+
+    .clearfix {
+        clear: both
+    }
 </style>
 <div class="centercont clearfix">
     <div class="wrap">
         <div class="ltnemu fl">
             <ul>
-                <li><a href="/index/member/index/" {eq name="status" value="0"} class="on" {/eq}>制作中</a></li>
-                <li><a href="/index/member/index/status/1" {eq name="status" value="1"} class="on" {/eq}>输出中</a></li>
-                <li><a href="/index/member/index/status/2" {eq name="status" value="2"} class="on" {/eq}>已完成</a></li>
+                <li><a href="/index/member/index/" {eq name="status" value="0" } class="on" {/eq}>制作中</a></li>
+                <li><a href="/index/member/index/status/1" {eq name="status" value="1" } class="on" {/eq}>输出中</a></li>
+                <li><a href="/index/member/index/status/2" {eq name="status" value="2" } class="on" {/eq}>已完成</a></li>
                 <!--<li><a href="/index/member/index/status/3" {eq name="status" value="3"} class="on" {/eq}>视频输出</a></li>-->
                 <!--<li><a href="/index/member/index/status/4" {eq name="status" value="4"} class="on" {/eq}>输出失败</a></li>-->
                 <!--<li><a href="/member/gift/index.html">我的礼品</a></li>-->
@@ -94,7 +143,8 @@
                 <span>余额：<i>￥0.00</i></span>
                 <!---->
                 <a href="/member/payment">充值</a>
-                <a href="/payguide.html" target="_blank" style="margin-top: 20px;"><img src="/static/index/images/payguide.jpg"></a>
+                <a href="/payguide.html" target="_blank" style="margin-top: 20px;"><img
+                        src="/static/index/images/payguide.jpg"></a>
             </div>
         </div>
         <div class="rimaincint fr">
@@ -107,19 +157,19 @@
                 <i>已完成</i>
                 {/if}
             </div>
-
-            <div class="screentype clearfix">
-            <span>分类：</span>
-            <a class="on" href="/home/home/all_works.html?cate=3">全部</a>
-            <a class="" href="/home/home/all_works.html?cate=3&screentype=1">横屏</a>
-            <a class="" href="/home/home/all_works.html?cate=3&screentype=2">竖屏</a>
-            <a class="" href="/home/home/all_works.html?cate=3&screentype=3">方屏</a>
+            {eq name="status" value="2"}
+            <div class="typeclass">
+                <!--<span>分类：</span>-->
+                <a {if condition="$cate eq 0" } class="on" {/if} href="/index/member/index?status={$status}">全部</a>
+                {volist name="cates" id="vo"}
+                <a {if condition="$vo.id eq $cate" } class="on" {/if} href="/index/member/index?status={$status}&cate={$vo.id}">{$vo.name} ({$vo.count})</a>
+                {/volist}
             </div>
-            <div class="searchbox pa" style="">
+            <div class="searchbox">
                 <input type="text" id="keywords" name="keywords" value="" placeholder="请输入关键字">
-                <a href="javascript:;" onclick="searchBtnClick();"></a>
+                <a href="javascript:;" onclick="searchBtnClick();">搜索</a>
             </div>
-
+            {/eq}
             <div class="mycaselist clearfix">
                 <div class="addpt">
                     <a href="/"><img src="/static/index/images/addicos.png"><i>创建视频</i></a>
@@ -146,15 +196,15 @@
                         <div class="proname" style="color: #777;">
 								<span>
 									<i class="work-name" id="work-name-{$li.id}" title="{$li.model_name}">{$li.vedio_name}</i>&nbsp;
-									<!--<i class="fa fa-pencil edit-work-name" aria-hidden="true" onclick="show_name_editor(1888830);" aria-describedby="tipsy" tabindex="0"></i>-->
+                                    <!--<i class="fa fa-pencil edit-work-name" aria-hidden="true" onclick="show_name_editor(1888830);" aria-describedby="tipsy" tabindex="0"></i>-->
 								</span>
                             <!--<span style="display: none">-->
-									<!--<input type="text" value="甜蜜家人" maxlength="25" id="work-editor-1888830">-->
-									<!--<i class="fa fa-check edit-name-confirm" aria-hidden="true" style="color: green;"-->
-                                       <!--title="确认" onclick="confirm_name_edit(1888830);"></i>-->
-									<!--<i class="fa fa-times edit-name-cancel" aria-hidden="true" style="color: red;"-->
-                                       <!--title="取消" onclick="cancel_name_edit(this);"></i>-->
-								<!--</span>-->
+                            <!--<input type="text" value="甜蜜家人" maxlength="25" id="work-editor-1888830">-->
+                            <!--<i class="fa fa-check edit-name-confirm" aria-hidden="true" style="color: green;"-->
+                            <!--title="确认" onclick="confirm_name_edit(1888830);"></i>-->
+                            <!--<i class="fa fa-times edit-name-cancel" aria-hidden="true" style="color: red;"-->
+                            <!--title="取消" onclick="cancel_name_edit(this);"></i>-->
+                            <!--</span>-->
                             <span style="float: right;">
 									<i>{if condition="$li.status eq 0"}正在编辑{elseif condition="$li.status eq 1"}编辑完成{elseif condition="$li.status eq 3"/}已输出{elseif condition="$li.status eq 4"}渲染失败{elseif condition="$li.status eq 5"}渲染中{/if}</i>
 								</span>
@@ -167,10 +217,11 @@
                 </div>
                 {/volist}
             </div>
+            {$lists->render()}
         </div>
     </div>
-    <!--<input type="hidden" id="domain" value="http://www.chuanying520.com/"/>-->
-    <!--<input type="hidden" id="domain" value="http://www.chuanying520.com/"/>-->
+    <input type="hidden" id="status" value="{$status}"/>
+    <input type="hidden" id="cate" value="{$cate}"/>
 </div>
 <script type="text/javascript">
 	$(function(){
@@ -184,6 +235,20 @@
             });
         }
 	});
+    /**
+     * 搜索
+     */
+    function searchBtnClick() {
+        var keywords = $('#keywords').val();
+        if (keywords) {
+            var Request = GetRequest();
+            Request.cate = $('#cate').val();
+            Request.status = $('#status').val();
+            Request.keywords = keywords;
+            var url = SetRequest(Request);
+            window.location.href = '/index/member/index?' + url;
+        }
+    }
     //重命名
     function rname(id){
         project_name = $('#proname_'+id).text();
