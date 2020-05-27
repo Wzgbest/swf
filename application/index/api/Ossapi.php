@@ -22,8 +22,8 @@ use \DateTime;
 
 class Ossapi
 {
-    private $id = 'LTAIfjdMZsrYEEmY';
-    private $key = 'rTKYFTnczjqd3I2t6UlBDPXQCG7jcD';
+    private $id = '';
+    private $key;
     private $host = 'http://spxm.oss-cn-beijing.aliyuncs.com';
     /**
      * @return \think\response\Json 设置上传的参数
